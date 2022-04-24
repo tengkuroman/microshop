@@ -12,7 +12,6 @@ type PaymentProviderInput struct {
 }
 
 type PaymentRequest struct {
-	OrderDetailID     int
 	Total             int
 	PaymentProviderID int
 }
