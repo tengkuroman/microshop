@@ -180,7 +180,7 @@ func SwitchUser(c *gin.Context) {
 
 	userInfo := map[string]string{
 		"user_id": strconv.FormatUint(uint64(user.ID), 10),
-		"role":    user.Role,
+		"role":    newRole,
 	}
 
 	token, err := utils.GenerateToken(userInfo)
