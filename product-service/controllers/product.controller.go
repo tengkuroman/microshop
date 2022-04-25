@@ -92,7 +92,6 @@ func PostProduct(c *gin.Context) {
 	db.Create(&product)
 
 	response := utils.ResponseAPI("Product created successfully!", http.StatusOK, "success", product)
-
 	c.JSON(http.StatusOK, response)
 }
 
