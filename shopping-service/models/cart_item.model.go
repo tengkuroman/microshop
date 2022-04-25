@@ -10,3 +10,8 @@ type CartItem struct {
 	ProductID         uint
 	ShoppingSessionID uint
 }
+
+type CartItemUpdateInput struct {
+	Quantity  int  `binding:"required"`
+	ProductID uint `binding:"required"`
+}
