@@ -1,0 +1,81 @@
+@startuml microshop
+skinparam SequenceArrowThickness 1.5
+skinparam ArrowFontSize 15
+skinparam ranksep 200
+
+actor user as user
+
+package "localhost:9000" as gateway_ctn {
+    component "api-gateway" as gateway_srv
+}
+
+' Service Entities
+package "user-srv:8080" as user_ctn {
+    component "user-service" as user_srv
+}
+
+package "product-srv:8080" as product_ctn {
+    component "product-service" as product_srv
+}
+
+package "shopping-srv:8080" as shopping_ctn {
+    component "shopping-service" as shopping_srv
+} 
+
+package "order-srv:8080" as order_ctn {
+    component "order-service" as order_srv
+}
+
+package "payment-srv:8080" as payment_ctn {
+    component "payment-service" as payment_srv
+}
+
+' Database Entities
+package "user-db:5432" as dbuser {
+    database db_user
+}
+
+package "product-db:5432" as dbproduct {
+    database db_product
+}
+
+package "shopping-db:5432" as dbshopping {
+    database db_shopping
+}
+
+package "order-db:5432" as dborder {
+    database db_order
+}
+
+package "payment-db:5432" as dbpayment {
+    database db_payment
+}
+
+' Entitity Links
+user --> gateway_ctn
+
+gateway_ctn -> user_ctn
+gateway_ctn --> product_ctn
+gateway_ctn --> shopping_ctn
+gateway_ctn --> order_ctn
+
+gateway_srv .> user_srv : User validation
+shopping_srv .> product_srv : Get product price
+shopping_srv .> order_srv : Checkout and create order
+order_srv .> payment_srv : Pay order
+
+user_ctn .> dbuser
+product_ctn ..> dbproduct
+shopping_ctn ..> dbshopping
+order_ctn ..> dborder
+payment_ctn ..> dbpayment
+
+' Legend
+skinparam legendBackgroundColor #ffffff
+legend top right
+   |= Arrow |= Image |= Description|
+   | Solid | <img:http://www.plantuml.com/plantuml/png/LSsn3i8m30JGFLzXiNV83w3-ohKsJKHY8pk8toVPG3Uzk-7s6F3nxYt5i-eBZavHmFQfUj43BUHdEU5ycBFuQSsSr5JIAkasWo3aFnuv8TFczIfZko_keZpVlW00> | Invoked by user |
+   | Dashed | <img:http://www.plantuml.com/plantuml/png/LSqn3a8n30FGlQU8s1bw0VJlWHZyVmAjQ1EK575zsWtaoS-3jnZmyUujnRFg2uvEKS3sgVgWErh8ptB0UJTdySEQEQcff8Lqca4Gyb_TSqAcyvKHHVXsMR29ylpx0W00> | Invoked by service |
+endlegend
+
+@enduml

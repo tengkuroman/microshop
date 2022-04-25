@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="991px" preserveAspectRatio="none" style="width:1049px;height:991px;background:#FFFFFF;" version="1.1" viewBox="0 0 1049 991" width="1049px" zoomAndPan="magnify"><defs><filter height="300%" id="fnw11ui0f6wgu" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><rect fill="#FFFFFF" height="71.6094" rx="5" ry="5" style="stroke:#000000;stroke-width:1.0;" width="289" x="738" y="8"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="41" x="748" y="29.5332">Arrow</text><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="42" x="805" y="29.5332">Image</text><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="81" x="900" y="29.5332">Description</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="31" x="748" y="47.1426">Solid</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="805" y="49.5332"/><image height="20" width="87" x="805" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFcAAAAUCAYAAAD4BKGuAAABVElEQVR4Xu2XMaqDQBCGcwxFjSGIIqRJmVTpcgKrNB7C2iNYewDBYySFCLlC7NNZWFikkD/sgg/eJmxjdsLz7QfTuMu487GOuwtolLEQH2g+h5arEC1XIVquQmYjt2ka5HmOtm3Foa8xG7mMuq4RhiGiKEJRFOIwOVK5wzCg73t0XTcpWA6WiwImeL1ewzAMeJ6HNE3xeDzEaSS1SeV+4uVjsFxUMMG+72O323HJtm0jjmPc7/efORS1SeWKSaYGJUzwZrPB6XTiglmYponj8Yjr9fqytqnxDlK5Y5HfCsdxYFkWbxfn8/llfVPiHVK5FJ+OKqqqwmq14lJZi9jv93wnZ1nGTxQUtUnlUjR9FTCxy+USQRBgu93icDigLMtfPzaK2qRy/yJMrOu6fMeyfnu5XMQpZMxK7njOTZIEt9tNHCZnNnL1De2foeUqRMtViJarkCe7FjhLLFxsvQAAAABJRU5ErkJggg==" y="32.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="896" y="49.5332"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="100" x="900" y="47.1426">Invoked by user</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="49" x="748" y="67.1426">Dashed</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="805" y="69.5332"/><image height="20" width="87" x="805" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFcAAAAUCAYAAAD4BKGuAAABcUlEQVR4Xu2XMa6CQBCGPYYGEUOMhoTGEis7T0BF4yGsbWzFjoQDmHgMKIgJV8DezsLCwoL8L7MJJG81NLjz8nC/ZBp2srvzZRmWHjTK6MkPNJ9Dy1WIlqsQLVchnZF7uVwQxzFut5s89Gd0Ri5xPp/hOA5838fxeJSH2WmUW5YlHo8H7vd7q6A5aC4OSLBt2+j3+5hMJthut3g+n3IaS22Ncj+xeBU0FxckeDqdwvM8IXk4HGK9XuN6vdY5HLU1ypUnaRuckGDXdREEgRBMMRgMsFqtkOf5y97axjtY5e73+7pQOXa7nbx8TRiGL/lVRFEkp9dQ76VTW+WapgnDMES7SJLkZX9t4h2NcjleHVVkWYbxeCykUotYLBbiJB8OB3Gj4KitUS5H01cBiR2NRpjNZpjP51gulzidTr8+bBy1Ncr9j5BYy7LEiaV+m6apnMJGp+RW99zNZoOiKORhdjojV/+hfRlarkK0XIVouQr5AZxBXv2bF3BpAAAAAElFTkSuQmCC" y="52.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="896" y="69.5332"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="117" x="900" y="67.1426">Invoked by service</text><line style="stroke:#000000;stroke-width:1.0;" x1="744" x2="1021" y1="15" y2="15"/><line style="stroke:#000000;stroke-width:1.0;" x1="744" x2="1021" y1="32.6094" y2="32.6094"/><line style="stroke:#000000;stroke-width:1.0;" x1="744" x2="1021" y1="52.6094" y2="52.6094"/><line style="stroke:#000000;stroke-width:1.0;" x1="744" x2="1021" y1="72.6094" y2="72.6094"/><line style="stroke:#000000;stroke-width:1.0;" x1="744" x2="744" y1="15" y2="72.6094"/><line style="stroke:#000000;stroke-width:1.0;" x1="801" x2="801" y1="15" y2="72.6094"/><line style="stroke:#000000;stroke-width:1.0;" x1="896" x2="896" y1="15" y2="72.6094"/><line style="stroke:#000000;stroke-width:1.0;" x1="1021" x2="1021" y1="15" y2="72.6094"/><!--MD5=[425949a83f9ea4b4ce300c5a1fa4f1b4]
+cluster gateway_ctn--><polygon fill="#FFFFFF" filter="url(#fnw11ui0f6wgu)" points="326,332.1094,432,332.1094,439,355.7188,509,355.7188,509,468.1094,326,468.1094,326,332.1094" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="326" x2="439" y1="355.7188" y2="355.7188"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="100" x="330" y="348.6426">localhost:9000</text><!--MD5=[00372d3bfffbb57122062182a5ae86c1]
+cluster user_ctn--><polygon fill="#FFFFFF" filter="url(#fnw11ui0f6wgu)" points="549,332.1094,651,332.1094,658,355.7188,734,355.7188,734,468.1094,549,468.1094,549,332.1094" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="549" x2="658" y1="355.7188" y2="355.7188"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="96" x="553" y="348.6426">user-srv:8080</text><!--MD5=[98ce8712e2a7694c27a7fa831fdad2b7]
+cluster product_ctn--><polygon fill="#FFFFFF" filter="url(#fnw11ui0f6wgu)" points="16,600.1094,141,600.1094,148,623.7188,221,623.7188,221,736.1094,16,736.1094,16,600.1094" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="16" x2="148" y1="623.7188" y2="623.7188"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="119" x="20" y="616.6426">product-srv:8080</text><!--MD5=[14e817d3b73eb1ddc64a41c3f3eabcc8]
+cluster shopping_ctn--><polygon fill="#FFFFFF" filter="url(#fnw11ui0f6wgu)" points="268,600.1094,404,600.1094,411,623.7188,483,623.7188,483,736.1094,268,736.1094,268,600.1094" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="268" x2="411" y1="623.7188" y2="623.7188"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="130" x="272" y="616.6426">shopping-srv:8080</text><!--MD5=[49aac9f04339c80e2418124ea64a4a36]
+cluster order_ctn--><polygon fill="#FFFFFF" filter="url(#fnw11ui0f6wgu)" points="590,600.1094,699,600.1094,706,623.7188,781,623.7188,781,736.1094,590,736.1094,590,600.1094" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="590" x2="706" y1="623.7188" y2="623.7188"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="103" x="594" y="616.6426">order-srv:8080</text><!--MD5=[e202e1477a49db9fd5a72441cb08d2ec]
+cluster payment_ctn--><polygon fill="#FFFFFF" filter="url(#fnw11ui0f6wgu)" points="821,600.1094,950,600.1094,957,623.7188,1032,623.7188,1032,736.1094,821,736.1094,821,600.1094" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="821" x2="957" y1="623.7188" y2="623.7188"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="123" x="825" y="616.6426">payment-srv:8080</text><!--MD5=[9e8cfb17fd36bbe6d0097ec79c7ecdad]
+cluster dbuser--><polygon fill="#FFFFFF" filter="url(#fnw11ui0f6wgu)" points="774,332.6094,871,332.6094,878,356.2188,913,356.2188,913,467.6094,774,467.6094,774,332.6094" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="774" x2="878" y1="356.2188" y2="356.2188"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="91" x="778" y="349.1426">user-db:5432</text><!--MD5=[f6e41e2c07c9229f3a40451567e04f49]
+cluster dbproduct--><polygon fill="#FFFFFF" filter="url(#fnw11ui0f6wgu)" points="16,849.1094,136,849.1094,143,872.7188,175,872.7188,175,984.1094,16,984.1094,16,849.1094" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="16" x2="143" y1="872.7188" y2="872.7188"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="114" x="20" y="865.6426">product-db:5432</text><!--MD5=[6afa0fc510973ad90421c6f87ee4f8b0]
+cluster dbshopping--><polygon fill="#FFFFFF" filter="url(#fnw11ui0f6wgu)" points="268,849.1094,399,849.1094,406,872.7188,437,872.7188,437,984.1094,268,984.1094,268,849.1094" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="268" x2="406" y1="872.7188" y2="872.7188"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="125" x="272" y="865.6426">shopping-db:5432</text><!--MD5=[aea23e9bff3496d47b0bcf56a8d2e99b]
+cluster dborder--><polygon fill="#FFFFFF" filter="url(#fnw11ui0f6wgu)" points="590,849.1094,694,849.1094,701,872.7188,735,872.7188,735,984.1094,590,984.1094,590,849.1094" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="590" x2="701" y1="872.7188" y2="872.7188"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="98" x="594" y="865.6426">order-db:5432</text><!--MD5=[c95681418d539e20e928a68552e68ddf]
+cluster dbpayment--><polygon fill="#FFFFFF" filter="url(#fnw11ui0f6wgu)" points="821,849.1094,945,849.1094,952,872.7188,986,872.7188,986,984.1094,821,984.1094,821,849.1094" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="821" x2="952" y1="872.7188" y2="872.7188"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="118" x="825" y="865.6426">payment-db:5432</text><!--MD5=[8278769fe4027d62f052d3e420bb2f26]
+entity gateway_srv--><rect fill="#FEFECE" filter="url(#fnw11ui0f6wgu)" height="47.6094" style="stroke:#A80036;stroke-width:1.5;" width="116" x="369" y="396.1094"/><rect fill="#FEFECE" height="10" style="stroke:#A80036;stroke-width:1.5;" width="15" x="465" y="401.1094"/><rect fill="#FEFECE" height="2" style="stroke:#A80036;stroke-width:1.5;" width="4" x="463" y="403.1094"/><rect fill="#FEFECE" height="2" style="stroke:#A80036;stroke-width:1.5;" width="4" x="463" y="407.1094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76" x="384" y="430.6426">api-gateway</text><!--MD5=[97d3d96bd0d65a3cd6b8b609f5666847]
+entity user_srv--><rect fill="#FEFECE" filter="url(#fnw11ui0f6wgu)" height="47.6094" style="stroke:#A80036;stroke-width:1.5;" width="118" x="592" y="396.1094"/><rect fill="#FEFECE" height="10" style="stroke:#A80036;stroke-width:1.5;" width="15" x="690" y="401.1094"/><rect fill="#FEFECE" height="2" style="stroke:#A80036;stroke-width:1.5;" width="4" x="688" y="403.1094"/><rect fill="#FEFECE" height="2" style="stroke:#A80036;stroke-width:1.5;" width="4" x="688" y="407.1094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="78" x="607" y="430.6426">user-service</text><!--MD5=[7416eef885fefb772dfd1b28c257dc31]
+entity product_srv--><rect fill="#FEFECE" filter="url(#fnw11ui0f6wgu)" height="47.6094" style="stroke:#A80036;stroke-width:1.5;" width="138" x="59" y="664.1094"/><rect fill="#FEFECE" height="10" style="stroke:#A80036;stroke-width:1.5;" width="15" x="177" y="669.1094"/><rect fill="#FEFECE" height="2" style="stroke:#A80036;stroke-width:1.5;" width="4" x="175" y="671.1094"/><rect fill="#FEFECE" height="2" style="stroke:#A80036;stroke-width:1.5;" width="4" x="175" y="675.1094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="98" x="74" y="698.6426">product-service</text><!--MD5=[ec0158114c8e7ed6fffcc1a5e560407d]
+entity shopping_srv--><rect fill="#FEFECE" filter="url(#fnw11ui0f6wgu)" height="47.6094" style="stroke:#A80036;stroke-width:1.5;" width="148" x="311" y="664.1094"/><rect fill="#FEFECE" height="10" style="stroke:#A80036;stroke-width:1.5;" width="15" x="439" y="669.1094"/><rect fill="#FEFECE" height="2" style="stroke:#A80036;stroke-width:1.5;" width="4" x="437" y="671.1094"/><rect fill="#FEFECE" height="2" style="stroke:#A80036;stroke-width:1.5;" width="4" x="437" y="675.1094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="108" x="326" y="698.6426">shopping-service</text><!--MD5=[c93614efd10bc1cf74fc7af69992c290]
+entity order_srv--><rect fill="#FEFECE" filter="url(#fnw11ui0f6wgu)" height="47.6094" style="stroke:#A80036;stroke-width:1.5;" width="124" x="633" y="664.1094"/><rect fill="#FEFECE" height="10" style="stroke:#A80036;stroke-width:1.5;" width="15" x="737" y="669.1094"/><rect fill="#FEFECE" height="2" style="stroke:#A80036;stroke-width:1.5;" width="4" x="735" y="671.1094"/><rect fill="#FEFECE" height="2" style="stroke:#A80036;stroke-width:1.5;" width="4" x="735" y="675.1094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="84" x="648" y="698.6426">order-service</text><!--MD5=[66dba26d2ee94b7587cd9c7f373165f8]
+entity payment_srv--><rect fill="#FEFECE" filter="url(#fnw11ui0f6wgu)" height="47.6094" style="stroke:#A80036;stroke-width:1.5;" width="144" x="864" y="664.1094"/><rect fill="#FEFECE" height="10" style="stroke:#A80036;stroke-width:1.5;" width="15" x="988" y="669.1094"/><rect fill="#FEFECE" height="2" style="stroke:#A80036;stroke-width:1.5;" width="4" x="986" y="671.1094"/><rect fill="#FEFECE" height="2" style="stroke:#A80036;stroke-width:1.5;" width="4" x="986" y="675.1094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="104" x="879" y="698.6426">payment-service</text><!--MD5=[d7c4842f713b7111f319033620a05650]
+entity db_user--><path d="M817,406.6094 C817,396.6094 853,396.6094 853,396.6094 C853,396.6094 889,396.6094 889,406.6094 L889,433.2188 C889,443.2188 853,443.2188 853,443.2188 C853,443.2188 817,443.2188 817,433.2188 L817,406.6094 " fill="#FEFECE" filter="url(#fnw11ui0f6wgu)" style="stroke:#000000;stroke-width:1.5;"/><path d="M817,406.6094 C817,416.6094 853,416.6094 853,416.6094 C853,416.6094 889,416.6094 889,406.6094 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="52" x="827" y="435.1426">db_user</text><!--MD5=[a70c0ccc73a4c5547844a3c2cc41789d]
+entity db_product--><path d="M59,923.1094 C59,913.1094 105,913.1094 105,913.1094 C105,913.1094 151,913.1094 151,923.1094 L151,949.7188 C151,959.7188 105,959.7188 105,959.7188 C105,959.7188 59,959.7188 59,949.7188 L59,923.1094 " fill="#FEFECE" filter="url(#fnw11ui0f6wgu)" style="stroke:#000000;stroke-width:1.5;"/><path d="M59,923.1094 C59,933.1094 105,933.1094 105,933.1094 C105,933.1094 151,933.1094 151,923.1094 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="72" x="69" y="951.6426">db_product</text><!--MD5=[fb08b25ffa144a84cc290e1d48ab3e02]
+entity db_shopping--><path d="M311,923.1094 C311,913.1094 362,913.1094 362,913.1094 C362,913.1094 413,913.1094 413,923.1094 L413,949.7188 C413,959.7188 362,959.7188 362,959.7188 C362,959.7188 311,959.7188 311,949.7188 L311,923.1094 " fill="#FEFECE" filter="url(#fnw11ui0f6wgu)" style="stroke:#000000;stroke-width:1.5;"/><path d="M311,923.1094 C311,933.1094 362,933.1094 362,933.1094 C362,933.1094 413,933.1094 413,923.1094 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="82" x="321" y="951.6426">db_shopping</text><!--MD5=[4bb87093dab52b939621aa36b56d0afa]
+entity db_order--><path d="M633,923.1094 C633,913.1094 672,913.1094 672,913.1094 C672,913.1094 711,913.1094 711,923.1094 L711,949.7188 C711,959.7188 672,959.7188 672,959.7188 C672,959.7188 633,959.7188 633,949.7188 L633,923.1094 " fill="#FEFECE" filter="url(#fnw11ui0f6wgu)" style="stroke:#000000;stroke-width:1.5;"/><path d="M633,923.1094 C633,933.1094 672,933.1094 672,933.1094 C672,933.1094 711,933.1094 711,923.1094 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="58" x="643" y="951.6426">db_order</text><!--MD5=[a0061600219c42ad84e3119bc0c0927f]
+entity db_payment--><path d="M864,923.1094 C864,913.1094 913,913.1094 913,913.1094 C913,913.1094 962,913.1094 962,923.1094 L962,949.7188 C962,959.7188 913,959.7188 913,959.7188 C913,959.7188 864,959.7188 864,949.7188 L864,923.1094 " fill="#FEFECE" filter="url(#fnw11ui0f6wgu)" style="stroke:#000000;stroke-width:1.5;"/><path d="M864,923.1094 C864,933.1094 913,933.1094 913,933.1094 C913,933.1094 962,933.1094 962,923.1094 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="78" x="874" y="951.6426">db_payment</text><!--MD5=[8fc3522a43f8c7199df5e09e5bb0188e]
+entity user--><ellipse cx="334" cy="102.6094" fill="#FEFECE" filter="url(#fnw11ui0f6wgu)" rx="8" ry="8" style="stroke:#A80036;stroke-width:1.5;"/><path d="M334,110.6094 L334,137.6094 M321,118.6094 L347,118.6094 M334,137.6094 L321,152.6094 M334,137.6094 L347,152.6094 " fill="none" filter="url(#fnw11ui0f6wgu)" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="28" x="320" y="172.6426">user</text><!--MD5=[65565d5d42859b83bdf1f794d2550c1a]
+link user to gateway_ctn--><path d="M334,176.2294 C334,214.8094 334,274.2494 334,324.6694 C334,326.245 334,327.8118 334,329.3689 C334,330.1475 334,330.9236 334,331.6972 " fill="none" id="user-to-gateway_ctn" style="stroke:#A80036;stroke-width:1.5;"/><polygon fill="#A80036" points="334,331.6972,338,322.6972,334,326.6972,330,322.6972,334,331.6972" style="stroke:#A80036;stroke-width:1.5;"/><!--MD5=[70e639a4c06d57367b3df54e578c8ceb]
+link gateway_ctn to user_ctn--><path d="M330.3909,331.2709 C330.425,330.9774 330.4597,330.6838 330.4949,330.3902 C330.636,329.2156 330.7865,328.0397 330.947,326.8631 C331.2679,324.51 331.6285,322.1543 332.0319,319.8016 C333.6454,310.391 335.9437,301.029 339.1289,292.0745 C345.4994,274.1656 355.4175,257.8869 370.5,246.1094 C410.09,215.1994 441.64,218.3494 483.5,246.1094 C517.39,268.5844 535.6925,310.1094 545.5575,346.9569 C546.7906,351.5628 547.8919,356.0957 548.8753,360.5091 " fill="none" id="gateway_ctn-to-user_ctn" style="stroke:#A80036;stroke-width:1.5;"/><polygon fill="#A80036" points="548.8753,360.5091,550.8222,350.8546,547.7879,355.6288,543.0137,352.5945,548.8753,360.5091" style="stroke:#A80036;stroke-width:1.5;"/><!--MD5=[43bd3a33f9241d974c0e24ac94041a47]
+link gateway_ctn to product_ctn--><path d="M325.7873,422.9878 C325.617,423.0288 325.4442,423.0704 325.269,423.1128 C324.5681,423.2822 323.8283,423.4627 323.0506,423.6545 C316.8291,425.1883 308.1867,427.4398 297.7253,430.4752 C276.8025,436.5459 248.6038,445.7525 217.945,458.6256 C156.6275,484.3719 85.47,524.7844 43,584.1094 C39.6663,588.7669 36.8653,593.8377 34.5165,599.1495 C34.4431,599.3155 34.3702,599.4817 34.2976,599.6482 " fill="none" id="gateway_ctn-to-product_ctn" style="stroke:#A80036;stroke-width:1.5;"/><polygon fill="#A80036" points="34.2976,599.6482,41.5593,592.9948,36.2946,595.0643,34.2251,589.7996,34.2976,599.6482" style="stroke:#A80036;stroke-width:1.5;"/><!--MD5=[a6c4ebb436e2085a8d989e5d41118173]
+link gateway_ctn to shopping_ctn--><path d="M333.1651,468.7399 C333.1496,468.956 333.134,469.1725 333.1181,469.3895 C333.0548,470.2575 332.9884,471.1326 332.9188,472.0144 C330.69,500.2319 325.155,535.3244 312,564.1094 C307.15,574.7194 300.01,573.5694 295,584.1094 C293.7713,586.6963 292.6218,589.3547 291.5464,592.0661 C291.0088,593.4218 290.4896,594.7907 289.9884,596.1706 C289.7378,596.8605 289.4917,597.5532 289.2499,598.2483 C289.129,598.5958 289.0093,598.944 288.8906,599.2927 C288.8312,599.4671 288.7722,599.6416 288.7134,599.8162 " fill="none" id="gateway_ctn-to-shopping_ctn" style="stroke:#A80036;stroke-width:1.5;"/><polygon fill="#A80036" points="288.7134,599.8162,295.3759,592.5629,290.3087,595.0776,287.7941,590.0104,288.7134,599.8162" style="stroke:#A80036;stroke-width:1.5;"/><!--MD5=[09ac1da7cca955d555da64c24afa8cd8]
+link gateway_ctn to order_ctn--><path d="M344.7703,468.1711 C344.8129,468.2768 344.8557,468.3825 344.8986,468.4882 C345.0704,468.9108 345.2448,469.3325 345.4218,469.7531 C346.1298,471.4355 346.8802,473.1007 347.6752,474.7367 C349.2652,478.0088 351.0338,481.1644 353,484.1094 C391.92,542.4194 421.01,539.3794 475,584.1094 C502.025,606.4994 532.245,631.8019 555.9675,651.7256 C567.8287,661.6875 578.0656,670.3047 585.4666,676.5408 C586.3917,677.3203 587.2725,678.0626 588.1066,678.7657 C588.5237,679.1172 588.9291,679.4589 589.3225,679.7906 C589.5192,679.9565 589.7129,680.1198 589.9036,680.2806 " fill="none" id="gateway_ctn-to-order_ctn" style="stroke:#A80036;stroke-width:1.5;"/><polygon fill="#A80036" points="589.9036,680.2806,585.6011,671.4212,586.0809,677.0577,580.4445,677.5375,589.9036,680.2806" style="stroke:#A80036;stroke-width:1.5;"/><!--MD5=[05c472bc986957c581fe1e3be0e571d3]
+link gateway_srv to user_srv--><path d="M432.31,396.0894 C439.83,368.5694 456.49,324.7394 489.5,305.1094 C526.55,283.0794 549.3,283.3194 586.5,305.1094 C617.93,323.5194 635.2,363.4594 643.78,391.0594 " fill="none" id="gateway_srv-to-user_srv" style="stroke:#A80036;stroke-width:1.5;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="645.28,396.0694,646.5118,386.2979,643.8367,391.2822,638.8523,388.6071,645.28,396.0694" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="15" lengthAdjust="spacing" textLength="95" x="490.5" y="292.6807">User validation</text><!--MD5=[25d17f49f8f9f10bb476c503b6a63620]
+link shopping_srv to product_srv--><path d="M377.37,663.9494 C367.19,636.2894 346.22,592.3294 311,573.1094 C266.52,548.8394 241.09,548.1494 197,573.1094 C164.77,591.3594 145.95,631.3394 136.32,658.9994 " fill="none" id="shopping_srv-to-product_srv" style="stroke:#A80036;stroke-width:1.5;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="134.63,664.0094,141.3036,656.7663,136.2326,659.2732,133.7257,654.2021,134.63,664.0094" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="15" lengthAdjust="spacing" textLength="112" x="198" y="560.6807">Get product price</text><!--MD5=[3b33aa2dd511987c48a5023036a72c33]
+link shopping_srv to order_srv--><path d="M392.53,663.9594 C402.6,636.2994 423.38,592.3494 458.5,573.1094 C492.61,554.4294 600.14,553.1194 633.5,573.1094 C664.4,591.6294 680.64,631.5394 688.52,659.1094 " fill="none" id="shopping_srv-to-order_srv" style="stroke:#A80036;stroke-width:1.5;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="689.89,664.1094,691.3517,654.3696,688.5599,659.2895,683.6399,656.4978,689.89,664.1094" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="15" lengthAdjust="spacing" textLength="173" x="459.5" y="560.6807">Checkout and create order</text><!--MD5=[7e3cfe3f9603aafd1430511694c23a4a]
+link order_srv to payment_srv--><path d="M704.31,663.8594 C716.44,636.1194 740.56,592.0694 777.5,573.1094 C803.2,559.9194 814.74,565.1094 842.5,573.1094 C883.34,584.8794 910.4,629.3294 924.46,659.3894 " fill="none" id="order_srv-to-payment_srv" style="stroke:#A80036;stroke-width:1.5;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="926.61,664.0894,926.49,654.2412,924.5238,659.5454,919.2196,657.5792,926.61,664.0894" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="15" lengthAdjust="spacing" textLength="63" x="778.5" y="560.6807">Pay order</text><!--MD5=[431de7367e08c2a57ad1360484ad989d]
+link user_ctn to dbuser--><path d="M553.3909,331.2709 C553.425,330.9774 553.4597,330.6838 553.4949,330.3902 C553.636,329.2156 553.7865,328.0397 553.947,326.8631 C554.2679,324.51 554.6285,322.1543 555.0319,319.8016 C556.6454,310.391 558.9437,301.029 562.1289,292.0745 C568.4994,274.1656 578.4175,257.8869 593.5,246.1094 C633.79,214.6594 665.9,217.8594 708.5,246.1094 C742.39,268.5844 760.6925,310.1094 770.5575,346.9569 C771.7906,351.5628 772.8919,356.0957 773.8753,360.5091 " fill="none" id="user_ctn-to-dbuser" style="stroke:#A80036;stroke-width:1.5;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="773.8753,360.5091,775.8222,350.8546,772.7879,355.6288,768.0137,352.5945,773.8753,360.5091" style="stroke:#A80036;stroke-width:1.5;"/><!--MD5=[168f22c0c63fac505d9b8d11d6b8afb3]
+link product_ctn to dbproduct--><path d="M24,736.5135 C24,736.8964 24,737.2809 24,737.667 C24,740.7556 24,743.9446 24,747.2197 C24,753.7699 24,760.6646 24,767.7888 C24,782.0373 24,797.2041 24,812.3706 C24,819.9539 24,827.5371 24,835.0055 C24,838.7396 24,842.4451 24,846.1075 C24,847.0231 24,847.936 24,848.846 " fill="none" id="product_ctn-to-dbproduct" style="stroke:#A80036;stroke-width:1.5;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="24,848.846,28,839.846,24,843.846,20,839.846,24,848.846" style="stroke:#A80036;stroke-width:1.5;"/><!--MD5=[78fc7f568e707dfb07e729744753836c]
+link shopping_ctn to dbshopping--><path d="M276,736.5135 C276,736.8964 276,737.2809 276,737.667 C276,740.7556 276,743.9446 276,747.2197 C276,753.7699 276,760.6646 276,767.7888 C276,782.0373 276,797.2041 276,812.3706 C276,819.9539 276,827.5371 276,835.0055 C276,838.7396 276,842.4451 276,846.1075 C276,847.0231 276,847.936 276,848.846 " fill="none" id="shopping_ctn-to-dbshopping" style="stroke:#A80036;stroke-width:1.5;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="276,848.846,280,839.846,276,843.846,272,839.846,276,848.846" style="stroke:#A80036;stroke-width:1.5;"/><!--MD5=[0bbed0b229d211868de88c69e0806554]
+link order_ctn to dborder--><path d="M598,736.5135 C598,736.8964 598,737.2809 598,737.667 C598,740.7556 598,743.9446 598,747.2197 C598,753.7699 598,760.6646 598,767.7888 C598,782.0373 598,797.2041 598,812.3706 C598,819.9539 598,827.5371 598,835.0055 C598,838.7396 598,842.4451 598,846.1075 C598,847.0231 598,847.936 598,848.846 " fill="none" id="order_ctn-to-dborder" style="stroke:#A80036;stroke-width:1.5;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="598,848.846,602,839.846,598,843.846,594,839.846,598,848.846" style="stroke:#A80036;stroke-width:1.5;"/><!--MD5=[698cca17ed7a4f74952feb0ebef9b621]
+link payment_ctn to dbpayment--><path d="M829,736.5135 C829,736.8964 829,737.2809 829,737.667 C829,740.7556 829,743.9446 829,747.2197 C829,753.7699 829,760.6646 829,767.7888 C829,782.0373 829,797.2041 829,812.3706 C829,819.9539 829,827.5371 829,835.0055 C829,838.7396 829,842.4451 829,846.1075 C829,847.0231 829,847.936 829,848.846 " fill="none" id="payment_ctn-to-dbpayment" style="stroke:#A80036;stroke-width:1.5;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="829,848.846,833,839.846,829,843.846,825,839.846,829,848.846" style="stroke:#A80036;stroke-width:1.5;"/><!--MD5=[dba636281acba57b53d758ba1d454c06]
+@startuml microshop
+skinparam SequenceArrowThickness 1.5
+skinparam ArrowFontSize 15
+skinparam ranksep 200
+
+actor user as user
+
+package "localhost:9000" as gateway_ctn {
+    component "api-gateway" as gateway_srv
+}
+
+' Service Entities
+package "user-srv:8080" as user_ctn {
+    component "user-service" as user_srv
+}
+
+package "product-srv:8080" as product_ctn {
+    component "product-service" as product_srv
+}
+
+package "shopping-srv:8080" as shopping_ctn {
+    component "shopping-service" as shopping_srv
+} 
+
+package "order-srv:8080" as order_ctn {
+    component "order-service" as order_srv
+}
+
+package "payment-srv:8080" as payment_ctn {
+    component "payment-service" as payment_srv
+}
+
+' Database Entities
+package "user-db:5432" as dbuser {
+    database db_user
+}
+
+package "product-db:5432" as dbproduct {
+    database db_product
+}
+
+package "shopping-db:5432" as dbshopping {
+    database db_shopping
+}
+
+package "order-db:5432" as dborder {
+    database db_order
+}
+
+package "payment-db:5432" as dbpayment {
+    database db_payment
+}
+
+' Entitity Links
+user - -> gateway_ctn
+
+gateway_ctn -> user_ctn
+gateway_ctn - -> product_ctn
+gateway_ctn - -> shopping_ctn
+gateway_ctn - -> order_ctn
+
+gateway_srv .> user_srv : User validation
+shopping_srv .> product_srv : Get product price
+shopping_srv .> order_srv : Checkout and create order
+order_srv .> payment_srv : Pay order
+
+user_ctn .> dbuser
+product_ctn ..> dbproduct
+shopping_ctn ..> dbshopping
+order_ctn ..> dborder
+payment_ctn ..> dbpayment
+
+' Legend
+skinparam legendBackgroundColor #ffffff
+legend top right
+   |= Arrow |= Image |= Description|
+   | Solid | <img:http://www.plantuml.com/plantuml/png/LSsn3i8m30JGFLzXiNV83w3-ohKsJKHY8pk8toVPG3Uzk-7s6F3nxYt5i-eBZavHmFQfUj43BUHdEU5ycBFuQSsSr5JIAkasWo3aFnuv8TFczIfZko_keZpVlW00> | Invoked by user |
+   | Dashed | <img:http://www.plantuml.com/plantuml/png/LSqn3a8n30FGlQU8s1bw0VJlWHZyVmAjQ1EK575zsWtaoS-3jnZmyUujnRFg2uvEKS3sgVgWErh8ptB0UJTdySEQEQcff8Lqca4Gyb_TSqAcyvKHHVXsMR29ylpx0W00> | Invoked by service |
+endlegend
+
+@enduml
+
+@startuml microshop
+skinparam SequenceArrowThickness 1.5
+skinparam ArrowFontSize 15
+skinparam ranksep 200
+
+actor user as user
+
+package "localhost:9000" as gateway_ctn {
+    component "api-gateway" as gateway_srv
+}
+
+package "user-srv:8080" as user_ctn {
+    component "user-service" as user_srv
+}
+
+package "product-srv:8080" as product_ctn {
+    component "product-service" as product_srv
+}
+
+package "shopping-srv:8080" as shopping_ctn {
+    component "shopping-service" as shopping_srv
+} 
+
+package "order-srv:8080" as order_ctn {
+    component "order-service" as order_srv
+}
+
+package "payment-srv:8080" as payment_ctn {
+    component "payment-service" as payment_srv
+}
+
+package "user-db:5432" as dbuser {
+    database db_user
+}
+
+package "product-db:5432" as dbproduct {
+    database db_product
+}
+
+package "shopping-db:5432" as dbshopping {
+    database db_shopping
+}
+
+package "order-db:5432" as dborder {
+    database db_order
+}
+
+package "payment-db:5432" as dbpayment {
+    database db_payment
+}
+
+user - -> gateway_ctn
+
+gateway_ctn -> user_ctn
+gateway_ctn - -> product_ctn
+gateway_ctn - -> shopping_ctn
+gateway_ctn - -> order_ctn
+
+gateway_srv .> user_srv : User validation
+shopping_srv .> product_srv : Get product price
+shopping_srv .> order_srv : Checkout and create order
+order_srv .> payment_srv : Pay order
+
+user_ctn .> dbuser
+product_ctn ..> dbproduct
+shopping_ctn ..> dbshopping
+order_ctn ..> dborder
+payment_ctn ..> dbpayment
+
+skinparam legendBackgroundColor #ffffff
+legend top right
+   |= Arrow |= Image |= Description|
+   | Solid | <img:http://www.plantuml.com/plantuml/png/LSsn3i8m30JGFLzXiNV83w3-ohKsJKHY8pk8toVPG3Uzk-7s6F3nxYt5i-eBZavHmFQfUj43BUHdEU5ycBFuQSsSr5JIAkasWo3aFnuv8TFczIfZko_keZpVlW00> | Invoked by user |
+   | Dashed | <img:http://www.plantuml.com/plantuml/png/LSqn3a8n30FGlQU8s1bw0VJlWHZyVmAjQ1EK575zsWtaoS-3jnZmyUujnRFg2uvEKS3sgVgWErh8ptB0UJTdySEQEQcff8Lqca4Gyb_TSqAcyvKHHVXsMR29ylpx0W00> | Invoked by service |
+endlegend
+
+@enduml
+
+PlantUML version 1.2022.0(Tue Jan 11 23:16:42 WIB 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: en
+Country: US
+--></g></svg>
