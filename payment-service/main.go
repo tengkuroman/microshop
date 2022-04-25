@@ -24,8 +24,10 @@ func main() {
 		c.Set("db", db)
 	})
 
-	// Routes (client)
+	// Routes (public)
 	r.GET("/payment", controllers.GetPaymentProviders)
+
+	// Routes (admin)
 	r.POST("/payment", controllers.PostPaymentProvider)
 	r.PATCH("/payment/:payment_provider_id", controllers.UpdatePaymentProvider)
 	r.DELETE("/payment/:payment_provider_id", controllers.DeletePaymentProvider)
