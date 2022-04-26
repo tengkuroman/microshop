@@ -1,13 +1,23 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
+	"os"
 
+	"github.com/go-resty/resty/v2"
 	"github.com/tengkuroman/microshop/order-service/models"
 	"github.com/tengkuroman/microshop/order-service/utils"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
+)
+
+// Connection to payment service config
+var (
+	paymentHost    = os.Getenv("PAYMENT_HOST")
+	paymentPort    = os.Getenv("PAYMENT_PORT")
+	paymentBaseURL = fmt.Sprintf("%s:%s", paymentHost, paymentPort)
 )
 
 func GetOrdersDetail(c *gin.Context) {
@@ -125,7 +135,22 @@ func PayOrder(c *gin.Context) {
 			response := utils.ResponseAPI("Order already paid!", http.StatusBadRequest, "error", nil)
 			c.JSON(http.StatusBadRequest, response)
 		} else {
-			// call payment service
+			data := map[string]interface{}{
+				"total":               order.Total,
+				"payment_provider_id": order.PaymentProviderID,
+			}
+
+			client := resty.New()
+			resp, err := client.R().SetBody(data).Post(paymentBaseURL + "/payment/process")
+
+			if err != nil {
+				response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+				c.JSON(http.StatusInternalServerError, response)
+				return
+			}
+
+			fmt.Println(resp)
+
 			db.Model(&order).Update("payment_status", "paid")
 
 			response := utils.ResponseAPI("Order payment success!", http.StatusOK, "success", nil)
