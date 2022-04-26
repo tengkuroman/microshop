@@ -262,30 +262,11 @@ func Checkout(c *gin.Context) {
 		return
 	}
 
-	// var order models.OrderDetail
-	// order.Total = session.Total
-	// order.PaymentStatus = "unpaid" // default when checkout
-
-	// db.Create(&order)
-
 	var cartItems []models.CartItem
 	if err := db.Where("session_id = ?", session.ID).Find(&cartItems).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
-	// var orderItems []models.OrderItem
-	// for i := range cartItems {
-	// 	var orderItem models.OrderItem
-
-	// 	orderItem.Quantity = cartItems[i].Quantity
-	// 	orderItem.ProductID = cartItems[i].ProductID
-	// 	orderItem.OrderDetailID = order.ID
-
-	// 	orderItems = append(orderItems, orderItem)
-	// }
-
-	// db.Create(&orderItems)
 
 	data := map[string]interface{}{
 		"session": session,
