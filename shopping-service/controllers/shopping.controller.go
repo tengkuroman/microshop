@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"encoding/json"
 	"fmt"
 	"math"
 	"net/http"
@@ -71,9 +70,7 @@ func AddProductToCart(c *gin.Context) {
 		productID := strconv.FormatUint(uint64(item.ProductID), 10)
 
 		client := resty.New()
-		res, err := client.R().SetResult(&models.Product{}).Get(productBaseURL + "/product/" + productID)
-
-		fmt.Println(res)
+		res, err := client.R().SetResult(&models.ProductResponse{}).Get(productBaseURL + "/product/" + productID)
 
 		if err != nil {
 			response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
@@ -81,11 +78,12 @@ func AddProductToCart(c *gin.Context) {
 			return
 		}
 
-		// itemTotalPrice := product.Price * item.Quantity
-		// db.Model(&session).Update("total", itemTotalPrice)
+		product := res.Result().(*models.ProductResponse).Data
+
+		itemTotalPrice := product.Price * item.Quantity
+		db.Model(&session).Update("total", itemTotalPrice)
 
 		response := utils.ResponseAPI("Product added to the cart!", http.StatusOK, "success", session)
-
 		c.JSON(http.StatusOK, response)
 
 		return
@@ -95,7 +93,9 @@ func AddProductToCart(c *gin.Context) {
 	db.Create(&item)
 
 	productID := strconv.FormatUint(uint64(item.ProductID), 10)
-	res, err := http.Get(productBaseURL + "/product/" + productID)
+
+	client := resty.New()
+	res, err := client.R().SetResult(&models.ProductResponse{}).Get(productBaseURL + "/product/" + productID)
 
 	if err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
@@ -103,9 +103,7 @@ func AddProductToCart(c *gin.Context) {
 		return
 	}
 
-	dec := json.NewDecoder(res.Body)
-	var product models.Product
-	err = dec.Decode(&product)
+	product := res.Result().(*models.ProductResponse).Data
 
 	totalPrice := session.Total + item.Quantity*product.Price
 	db.Model(&session).Update("total", totalPrice)
@@ -190,7 +188,9 @@ func UpdateCartItem(c *gin.Context) {
 	db.Model(&item).Update("quantity", updateItem.Quantity)
 
 	productID := strconv.FormatUint(uint64(item.ProductID), 10)
-	res, err := http.Get(productBaseURL + "/product/" + productID)
+
+	client := resty.New()
+	res, err := client.R().SetResult(&models.ProductResponse{}).Get(productBaseURL + "/product/" + productID)
 
 	if err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
@@ -198,9 +198,7 @@ func UpdateCartItem(c *gin.Context) {
 		return
 	}
 
-	dec := json.NewDecoder(res.Body)
-	var product models.Product
-	err = dec.Decode(&product)
+	product := res.Result().(*models.ProductResponse).Data
 
 	// Set new total
 	totalPrice := session.Total + product.Price*int(math.Abs(float64(item.Quantity-itemOldQuantity)))
