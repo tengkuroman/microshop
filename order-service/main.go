@@ -24,6 +24,9 @@ func main() {
 		c.Set("db", db)
 	})
 
+	// Routes (health check)
+	r.GET("/check", controllers.HealthCheck)
+
 	// Routes (user)
 	r.GET("/orders", controllers.GetOrdersDetail)
 	r.DELETE("/order/delete/:order_detail_id", controllers.DeleteOrder)

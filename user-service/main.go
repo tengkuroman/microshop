@@ -24,6 +24,9 @@ func main() {
 		c.Set("db", db)
 	})
 
+	// Routes (health check)
+	r.GET("/check", controllers.HealthCheck)
+
 	// Routes (public)
 	r.POST("/register", controllers.Register)
 	r.POST("/login", controllers.Login)

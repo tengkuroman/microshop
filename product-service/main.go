@@ -24,6 +24,9 @@ func main() {
 		c.Set("db", db)
 	})
 
+	// Routes (health check)
+	r.GET("/check", controllers.HealthCheck)
+
 	// All user
 	r.GET("/products", controllers.GetAllProducts)
 	r.GET("/product/:product_id", controllers.GetProductByID)

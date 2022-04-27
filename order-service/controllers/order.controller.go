@@ -20,6 +20,13 @@ var (
 	paymentBaseURL = fmt.Sprintf("%s:%s", paymentHost, paymentPort)
 )
 
+func HealthCheck(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Connection OK!",
+		"service": "order",
+	})
+}
+
 func GetOrdersDetail(c *gin.Context) {
 	// Get orders by user_id
 	db := c.MustGet("db").(*gorm.DB)

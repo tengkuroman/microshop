@@ -24,6 +24,9 @@ func main() {
 		c.Set("db", db)
 	})
 
+	// Routes (health check)
+	r.GET("/check", controllers.HealthCheck)
+
 	// Buyer route
 	r.POST("/cart", controllers.AddProductToCart)
 	r.GET("/cart", controllers.GetCartItems)

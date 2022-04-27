@@ -12,6 +12,13 @@ import (
 	"gorm.io/gorm"
 )
 
+func HealthCheck(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Connection OK!",
+		"service": "user",
+	})
+}
+
 func Register(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var registerInput models.RegisterInput

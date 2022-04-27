@@ -29,6 +29,13 @@ var (
 	orderBaseURL = fmt.Sprintf("%s:%s", orderHost, orderPort)
 )
 
+func HealthCheck(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Connection OK!",
+		"service": "shopping",
+	})
+}
+
 func AddProductToCart(c *gin.Context) {
 	// Check active shopping session by user_id
 	//      if exist then add to current session, update total in session

@@ -12,6 +12,13 @@ import (
 	"gorm.io/gorm"
 )
 
+func HealthCheck(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Connection OK!",
+		"service": "product",
+	})
+}
+
 func GetAllProducts(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var products []models.Product
