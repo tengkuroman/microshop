@@ -1,19 +1,19 @@
 package main
 
 import (
+	"log"
+	"net/http"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/tengkuroman/microshop/product-service/config"
 	"github.com/tengkuroman/microshop/product-service/controllers"
+	"golang.org/x/sync/errgroup"
 )
 
-func main() {
-	// Connect database
-	db := config.ConnectDatabase()
-	databaseSQL, _ := db.DB()
-	defer databaseSQL.Close()
+var g errgroup.Group
 
-	// Router
+func routeNonAuth(key string, value interface{}) http.Handler {
 	r := gin.Default()
 
 	// Set allow CORS
@@ -21,7 +21,7 @@ func main() {
 
 	// Set context
 	r.Use(func(c *gin.Context) {
-		c.Set("db", db)
+		c.Set(key, value)
 	})
 
 	// Routes (health check)
@@ -36,6 +36,20 @@ func main() {
 	r.GET("/categories", controllers.GetAllCategories)
 	r.GET("/category/:category_id", controllers.GetCategoryByID)
 
+	return r
+}
+
+func routeAuth(key string, value interface{}) http.Handler {
+	r := gin.Default()
+
+	// Set allow CORS
+	r.Use(cors.Default())
+
+	// Set context
+	r.Use(func(c *gin.Context) {
+		c.Set(key, value)
+	})
+
 	// Seller
 	r.POST("/product", controllers.PostProduct)
 	r.PATCH("/product/:product_id", controllers.UpdateProduct)
@@ -46,6 +60,42 @@ func main() {
 	r.PATCH("/category/:category_id", controllers.UpdateCategory)
 	r.DELETE("/category/:category_id", controllers.DeleteCategory)
 
-	// Run router
-	r.Run()
+	return r
+}
+
+func main() {
+	// Connect database
+	db := config.ConnectDatabase()
+	databaseSQL, _ := db.DB()
+	defer databaseSQL.Close()
+
+	serverNonAuth := &http.Server{
+		Addr:    ":8080",
+		Handler: routeNonAuth("db", db),
+	}
+
+	serverAuth := &http.Server{
+		Addr:    ":8081",
+		Handler: routeAuth("db", db),
+	}
+
+	g.Go(func() error {
+		err := serverNonAuth.ListenAndServe()
+		if err != nil && err != http.ErrServerClosed {
+			log.Fatal(err)
+		}
+		return err
+	})
+
+	g.Go(func() error {
+		err := serverAuth.ListenAndServe()
+		if err != nil && err != http.ErrServerClosed {
+			log.Fatal(err)
+		}
+		return err
+	})
+
+	if err := g.Wait(); err != nil {
+		log.Fatal(err)
+	}
 }
