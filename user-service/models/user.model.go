@@ -89,7 +89,6 @@ func LoginCheck(username string, password string, db *gorm.DB) (string, error) {
 
 	userInfo := map[string]string{
 		"user_id": strconv.FormatUint(uint64(u.ID), 10),
-		"role":    u.Role,
 	}
 
 	token, err := utils.GenerateToken(userInfo)
