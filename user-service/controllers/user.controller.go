@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/tengkuroman/microshop/user-service/models"
 	"github.com/tengkuroman/microshop/user-service/utils"
@@ -185,23 +184,11 @@ func SwitchUser(c *gin.Context) {
 
 	db.Model(&user).Update("role", newRole)
 
-	userInfo := map[string]string{
-		"user_id": strconv.FormatUint(uint64(user.ID), 10),
-		"role":    newRole,
-	}
-
-	token, err := utils.GenerateToken(userInfo)
-
-	if err != nil {
-		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
-		c.JSON(http.StatusInternalServerError, response)
-		return
-	}
-
-	response := utils.ResponseAPI("Role changed successfully!", http.StatusOK, "success", map[string]string{"token": token})
+	response := utils.ResponseAPI("Role changed successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
 }
 
+// Invoked by API gateway
 func ValidateUser(c *gin.Context) {
 	err := utils.ValidateToken(c)
 	if err != nil {
@@ -217,11 +204,18 @@ func ValidateUser(c *gin.Context) {
 		return
 	}
 
-	authData := map[string]interface{}{
-		"user_id": userData["user_id"],
-		"role":    userData["role"],
+	db := c.MustGet("db").(*gorm.DB)
+	var user models.User
+
+	err = db.Model(&user).Where("id = ?", userData["user_id"]).Take(&user).Error
+	if err != nil {
+		response := utils.ResponseAPI("Check user ID failed!", http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
 	}
 
-	response := utils.ResponseAPI("Token valid!", http.StatusOK, "success", authData)
-	c.JSON(http.StatusOK, response)
+	c.JSON(http.StatusOK, gin.H{
+		"user_id": user.ID,
+		"role":    user.Role,
+	})
 }
