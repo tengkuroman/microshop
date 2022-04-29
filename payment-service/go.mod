@@ -2,14 +2,19 @@ module github.com/tengkuroman/microshop/payment-service
 
 go 1.18
 
-require gorm.io/gorm v1.23.4
+require (
+	github.com/gin-gonic/gin v1.5.0
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
+	gopkg.in/square/go-jose.v2 v2.6.0
+	gorm.io/gorm v1.23.4
+)
 
 require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
-	github.com/gin-gonic/gin v1.5.0 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/golang/protobuf v1.3.2 // indirect
+	github.com/google/go-cmp v0.5.8 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.12.0 // indirect
 	github.com/jackc/pgio v1.0.0 // indirect
@@ -28,7 +33,6 @@ require (
 	golang.org/x/sys v0.0.0-20210806184541-e5e7981a1069 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/go-playground/validator.v9 v9.29.1 // indirect
-	gopkg.in/square/go-jose.v2 v2.6.0 // indirect
 	gopkg.in/yaml.v2 v2.2.2 // indirect
 )
 
