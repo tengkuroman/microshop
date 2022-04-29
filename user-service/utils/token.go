@@ -16,15 +16,14 @@ var (
 	tokenHourLifespan = os.Getenv("TOKEN_HOUR_LIFESPAN")
 )
 
-func GenerateToken(data interface{}) (string, error) {
+func GenerateToken(userID interface{}) (string, error) {
 	tokenLifespan, err := strconv.Atoi(tokenHourLifespan)
 	if err != nil {
 		return "", err
 	}
 
 	claims := jwt.MapClaims{}
-	claims["authorized"] = true
-	claims["data"] = data
+	claims["user_id"] = userID
 	claims["exp"] = time.Now().Add(time.Hour * time.Duration(tokenLifespan)).Unix()
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
@@ -77,8 +76,7 @@ func ExtractPayload(c *gin.Context) (map[string]interface{}, error) {
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if ok && token.Valid {
-		data := claims["data"].(map[string]interface{})
-		return data, nil
+		return claims, nil
 	}
 
 	return nil, nil
