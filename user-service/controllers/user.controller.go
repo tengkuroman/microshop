@@ -81,7 +81,7 @@ func ChangePassword(c *gin.Context) {
 		return
 	}
 
-	userData, err := utils.ExtractPayload(c)
+	claims, err := utils.ExtractPayload(c)
 	if err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
 		c.JSON(http.StatusInternalServerError, response)
@@ -90,7 +90,7 @@ func ChangePassword(c *gin.Context) {
 
 	var user models.User
 
-	if err := db.Where("id = ?", userData["user_id"]).First(&user).Error; err != nil {
+	if err := db.Where("id = ?", claims["user_id"]).First(&user).Error; err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
 		return
@@ -128,14 +128,14 @@ func ChangeUserDetail(c *gin.Context) {
 
 	var user models.User
 
-	userData, err := utils.ExtractPayload(c)
+	claims, err := utils.ExtractPayload(c)
 	if err != nil {
 		response := utils.ResponseAPI("Extract payload data failed!", http.StatusInternalServerError, "error", nil)
 		c.JSON(http.StatusInternalServerError, response)
 		return
 	}
 
-	if err := db.Where("id = ?", userData["user_id"]).First(&user).Error; err != nil {
+	if err := db.Where("id = ?", claims["user_id"]).First(&user).Error; err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
 		return
@@ -151,14 +151,14 @@ func SwitchUser(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var user models.User
 
-	userData, err := utils.ExtractPayload(c)
+	claims, err := utils.ExtractPayload(c)
 	if err != nil {
 		response := utils.ResponseAPI("Extract payload data failed!", http.StatusInternalServerError, "error", nil)
 		c.JSON(http.StatusInternalServerError, response)
 		return
 	}
 
-	if err := db.Where("id = ?", userData["user_id"]).First(&user).Error; err != nil {
+	if err := db.Where("id = ?", claims["user_id"]).First(&user).Error; err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
 		return
@@ -197,7 +197,7 @@ func ValidateUser(c *gin.Context) {
 		return
 	}
 
-	userData, err := utils.ExtractPayload(c)
+	claims, err := utils.ExtractPayload(c)
 	if err != nil {
 		response := utils.ResponseAPI("Extract payload data failed!", http.StatusInternalServerError, "error", nil)
 		c.JSON(http.StatusInternalServerError, response)
@@ -207,7 +207,7 @@ func ValidateUser(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var user models.User
 
-	err = db.Model(&user).Where("id = ?", userData["user_id"]).Take(&user).Error
+	err = db.Model(&user).Where("id = ?", claims["user_id"]).Take(&user).Error
 	if err != nil {
 		response := utils.ResponseAPI("Check user ID failed!", http.StatusInternalServerError, "error", nil)
 		c.JSON(http.StatusInternalServerError, response)
