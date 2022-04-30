@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/go-resty/resty/v2"
 	"github.com/tengkuroman/microshop/order-service/models"
@@ -30,16 +31,12 @@ func HealthCheck(c *gin.Context) {
 func GetOrdersDetail(c *gin.Context) {
 	// Get orders by user_id
 	db := c.MustGet("db").(*gorm.DB)
-
-	userData, err := utils.ExtractPayload(c.Query("token"))
-	if err != nil {
-		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
-		c.JSON(http.StatusInternalServerError, response)
-		return
-	}
-
 	var orders []models.OrderDetail
-	db.Where("user_id", userData["user_id"]).Find(&orders)
+	userID := c.Request.Header.Get("X-User-ID")
+
+	fmt.Println("User ID on request header", userID)
+
+	db.Where("user_id = ?", userID).Find(&orders)
 
 	response := utils.ResponseAPI("Get orders detail success!", http.StatusOK, "success", orders)
 	c.JSON(http.StatusOK, response)
@@ -60,14 +57,10 @@ func DeleteOrder(c *gin.Context) {
 		return
 	}
 
-	userData, err := utils.ExtractPayload(c.Query("token"))
-	if err != nil {
-		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
-		c.JSON(http.StatusInternalServerError, response)
-		return
-	}
+	orderUserID := strconv.FormatUint(uint64(order.UserID), 10)
+	userID := c.Request.Header.Get("X-User-ID")
 
-	if order.UserID == userData["user_id"] {
+	if orderUserID == userID {
 		var item models.OrderItem
 		db.Where("order_detail_id = ?", order.ID).Delete(&item)
 		db.Delete(&order)
@@ -95,14 +88,10 @@ func SelectPaymentProvider(c *gin.Context) {
 		return
 	}
 
-	userData, err := utils.ExtractPayload(c.Query("token"))
-	if err != nil {
-		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
-		c.JSON(http.StatusInternalServerError, response)
-		return
-	}
+	orderUserID := strconv.FormatUint(uint64(order.UserID), 10)
+	userID := c.Request.Header.Get("X-User-ID")
 
-	if order.UserID == userData["user_id"] {
+	if orderUserID == userID {
 		db.Model(&order).Update("payment_provider_id", c.Param("payment_provider_id"))
 
 		response := utils.ResponseAPI("Set payment provider success!", http.StatusOK, "success", nil)
@@ -130,14 +119,10 @@ func PayOrder(c *gin.Context) {
 		return
 	}
 
-	userData, err := utils.ExtractPayload(c.Query("token"))
-	if err != nil {
-		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
-		c.JSON(http.StatusInternalServerError, response)
-		return
-	}
+	orderUserID := strconv.FormatUint(uint64(order.UserID), 10)
+	userID := c.Request.Header.Get("X-User-ID")
 
-	if order.UserID == userData["user_id"] {
+	if orderUserID == userID {
 		if order.PaymentStatus == "paid" {
 			response := utils.ResponseAPI("Order already paid!", http.StatusBadRequest, "error", nil)
 			c.JSON(http.StatusBadRequest, response)

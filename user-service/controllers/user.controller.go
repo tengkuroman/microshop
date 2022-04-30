@@ -72,7 +72,6 @@ func Login(c *gin.Context) {
 }
 
 func ChangePassword(c *gin.Context) {
-	db := c.MustGet("db").(*gorm.DB)
 	var changePasswordInput models.ChangePasswordInput
 
 	if err := c.ShouldBindJSON(&changePasswordInput); err != nil {
@@ -81,16 +80,11 @@ func ChangePassword(c *gin.Context) {
 		return
 	}
 
-	claims, err := utils.ExtractPayload(c)
-	if err != nil {
-		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
-		c.JSON(http.StatusInternalServerError, response)
-		return
-	}
-
+	db := c.MustGet("db").(*gorm.DB)
 	var user models.User
+	userID := c.Request.Header.Get("X-User-ID")
 
-	if err := db.Where("id = ?", claims["user_id"]).First(&user).Error; err != nil {
+	if err := db.Where("id = ?", userID).First(&user).Error; err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
 		return
@@ -116,8 +110,6 @@ func ChangePassword(c *gin.Context) {
 }
 
 func ChangeUserDetail(c *gin.Context) {
-	db := c.MustGet("db").(*gorm.DB)
-
 	var changeUserDetailInput models.ChangeUserDetailInput
 
 	if err := c.ShouldBindJSON(&changeUserDetailInput); err != nil {
@@ -126,16 +118,11 @@ func ChangeUserDetail(c *gin.Context) {
 		return
 	}
 
+	db := c.MustGet("db").(*gorm.DB)
 	var user models.User
+	userID := c.Request.Header.Get("X-User-ID")
 
-	claims, err := utils.ExtractPayload(c)
-	if err != nil {
-		response := utils.ResponseAPI("Extract payload data failed!", http.StatusInternalServerError, "error", nil)
-		c.JSON(http.StatusInternalServerError, response)
-		return
-	}
-
-	if err := db.Where("id = ?", claims["user_id"]).First(&user).Error; err != nil {
+	if err := db.Where("id = ?", userID).First(&user).Error; err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
 		return
@@ -150,15 +137,9 @@ func ChangeUserDetail(c *gin.Context) {
 func SwitchUser(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var user models.User
+	userID := c.Request.Header.Get("X-User-ID")
 
-	claims, err := utils.ExtractPayload(c)
-	if err != nil {
-		response := utils.ResponseAPI("Extract payload data failed!", http.StatusInternalServerError, "error", nil)
-		c.JSON(http.StatusInternalServerError, response)
-		return
-	}
-
-	if err := db.Where("id = ?", claims["user_id"]).First(&user).Error; err != nil {
+	if err := db.Where("id = ?", userID).First(&user).Error; err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
 		return

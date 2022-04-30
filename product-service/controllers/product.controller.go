@@ -73,14 +73,9 @@ func PostProduct(c *gin.Context) {
 		return
 	}
 
-	userData, err := utils.ExtractPayload(c.Query("token"))
-	if err != nil {
-		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
-		c.JSON(http.StatusInternalServerError, response)
-		return
-	}
+	xUserID := c.Request.Header.Get("X-User-ID")
 
-	userID, err := strconv.ParseUint(fmt.Sprintf("%v", userData["user_id"]), 10, 32)
+	userID, err := strconv.ParseUint(fmt.Sprintf("%v", xUserID), 10, 32)
 	if err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
 		c.JSON(http.StatusInternalServerError, response)
@@ -113,14 +108,10 @@ func UpdateProduct(c *gin.Context) {
 		return
 	}
 
-	userData, err := utils.ExtractPayload(c.Query("token"))
-	if err != nil {
-		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
-		c.JSON(http.StatusInternalServerError, response)
-		return
-	}
+	productUserID := strconv.FormatUint(uint64(product.UserID), 10)
+	userID := c.Request.Header.Get("X-User-ID")
 
-	if product.UserID != userData["user_id"] {
+	if productUserID != userID {
 		response := utils.ResponseAPI("You can only update your own product!", http.StatusUnauthorized, "unauthorized", nil)
 		c.JSON(http.StatusUnauthorized, response)
 		return
@@ -151,14 +142,10 @@ func DeleteProduct(c *gin.Context) {
 		return
 	}
 
-	userData, err := utils.ExtractPayload(c.Query("token"))
-	if err != nil {
-		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
-		c.JSON(http.StatusInternalServerError, response)
-		return
-	}
+	productUserID := strconv.FormatUint(uint64(product.UserID), 10)
+	userID := c.Request.Header.Get("X-User-ID")
 
-	if product.UserID != userData["user_id"] {
+	if productUserID != userID {
 		response := utils.ResponseAPI("You can only delete your own product!", http.StatusUnauthorized, "unauthorized", nil)
 		c.JSON(http.StatusUnauthorized, response)
 		return

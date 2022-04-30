@@ -30,14 +30,9 @@ func GetPaymentProviders(c *gin.Context) {
 }
 
 func PostPaymentProvider(c *gin.Context) {
-	userData, err := utils.ExtractPayload(c.Query("token"))
-	if err != nil {
-		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
-		c.JSON(http.StatusInternalServerError, response)
-		return
-	}
+	userRole := c.Request.Header.Get("X-User-Role")
 
-	if userData["role"] != "admin" {
+	if userRole != "admin" {
 		response := utils.ResponseAPI("Only admins can create payment provider!", http.StatusUnauthorized, "unauthorized", nil)
 		c.JSON(http.StatusUnauthorized, response)
 		return
@@ -64,14 +59,9 @@ func PostPaymentProvider(c *gin.Context) {
 }
 
 func UpdatePaymentProvider(c *gin.Context) {
-	userData, err := utils.ExtractPayload(c.Query("token"))
-	if err != nil {
-		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
-		c.JSON(http.StatusInternalServerError, response)
-		return
-	}
+	userRole := c.Request.Header.Get("X-User-Role")
 
-	if userData["role"] != "admin" {
+	if userRole != "admin" {
 		response := utils.ResponseAPI("Only admins can update payment provider!", http.StatusUnauthorized, "unauthorized", nil)
 		c.JSON(http.StatusUnauthorized, response)
 		return
@@ -103,14 +93,9 @@ func UpdatePaymentProvider(c *gin.Context) {
 }
 
 func DeletePaymentProvider(c *gin.Context) {
-	userData, err := utils.ExtractPayload(c.Query("token"))
-	if err != nil {
-		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
-		c.JSON(http.StatusInternalServerError, response)
-		return
-	}
+	userRole := c.Request.Header.Get("X-User-Role")
 
-	if userData["role"] != "admin" {
+	if userRole != "admin" {
 		response := utils.ResponseAPI("Only admins can delete payment provider!", http.StatusUnauthorized, "unauthorized", nil)
 		c.JSON(http.StatusUnauthorized, response)
 		return
