@@ -17,7 +17,6 @@ func GetAllCategories(c *gin.Context) {
 	db.Find(&categories)
 
 	response := utils.ResponseAPI("Get all categories success!", http.StatusOK, "success", categories)
-
 	c.JSON(http.StatusOK, response)
 }
 
@@ -28,11 +27,18 @@ func GetCategoryByID(c *gin.Context) {
 	db.First(&category, c.Param("category_id"))
 
 	response := utils.ResponseAPI("Get category success!", http.StatusOK, "success", category)
-
 	c.JSON(http.StatusOK, response)
 }
 
 func PostCategory(c *gin.Context) {
+	userRole := c.Request.Header.Get("X-User-Role")
+
+	if userRole != "admin" {
+		response := utils.ResponseAPI("Only admins can post category!", http.StatusUnauthorized, "unauthorized", nil)
+		c.JSON(http.StatusUnauthorized, response)
+		return
+	}
+
 	db := c.MustGet("db").(*gorm.DB)
 	var input models.CategoryInput
 
@@ -50,13 +56,19 @@ func PostCategory(c *gin.Context) {
 	db.Create(&category)
 
 	response := utils.ResponseAPI("Category created successfully!", http.StatusOK, "success", category)
-
 	c.JSON(http.StatusOK, response)
 }
 
 func UpdateCategory(c *gin.Context) {
-	db := c.MustGet("db").(*gorm.DB)
+	userRole := c.Request.Header.Get("X-User-Role")
 
+	if userRole != "admin" {
+		response := utils.ResponseAPI("Only admins can update category!", http.StatusUnauthorized, "unauthorized", nil)
+		c.JSON(http.StatusUnauthorized, response)
+		return
+	}
+
+	db := c.MustGet("db").(*gorm.DB)
 	var input models.CategoryInput
 
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -76,13 +88,19 @@ func UpdateCategory(c *gin.Context) {
 	db.Model(&category).Updates(input)
 
 	response := utils.ResponseAPI("Category data changed successfully!", http.StatusOK, "success", input)
-
 	c.JSON(http.StatusOK, response)
 }
 
 func DeleteCategory(c *gin.Context) {
-	db := c.MustGet("db").(*gorm.DB)
+	userRole := c.Request.Header.Get("X-User-Role")
 
+	if userRole != "admin" {
+		response := utils.ResponseAPI("Only admins can delete category!", http.StatusUnauthorized, "unauthorized", nil)
+		c.JSON(http.StatusUnauthorized, response)
+		return
+	}
+
+	db := c.MustGet("db").(*gorm.DB)
 	var category models.Category
 
 	if err := db.Where("id = ?", c.Param("category_id")).First(&category).Error; err != nil {
@@ -94,6 +112,5 @@ func DeleteCategory(c *gin.Context) {
 	db.Delete(&category)
 
 	response := utils.ResponseAPI("Category deleted successfully!", http.StatusOK, "success", category)
-
 	c.JSON(http.StatusOK, response)
 }
