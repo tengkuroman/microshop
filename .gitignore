@@ -1,1 +1,6 @@
 data/api-gateway-data
+data/order-data
+data/payment-data
+data/product-data
+data/shopping-data
+data/user-data
