@@ -25,7 +25,7 @@ func routeNonAuth(key string, value interface{}) http.Handler {
 	})
 
 	// Routes (health check)
-	r.GET("/check", controllers.HealthCheck)
+	r.GET("/", controllers.HealthCheck)
 
 	// All user
 	r.GET("/products", controllers.GetAllProducts)

@@ -20,7 +20,7 @@ func routeNonAuth() http.Handler {
 	r.Use(cors.Default())
 
 	// Routes (health check)
-	r.GET("/check", controllers.HealthCheck)
+	r.GET("/", controllers.HealthCheck)
 
 	return r
 }
