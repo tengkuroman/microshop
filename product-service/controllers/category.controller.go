@@ -86,7 +86,7 @@ func PostCategory(c *gin.Context) {
 // @Param 		body body models.CategoryInput true "Body required."
 // @Produce 	json
 // @Success 	200 {object} map[string]interface{}
-// @Router 		/auth/product/v1//category/{category_id} [patch]
+// @Router 		/auth/product/v1/category/{category_id} [patch]
 // @Param 		category_id path int true "Param required."
 // @Security 	BearerToken
 func UpdateCategory(c *gin.Context) {
