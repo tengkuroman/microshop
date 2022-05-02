@@ -1,0 +1,796 @@
+definitions:
+  models.CategoryInput:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+    required:
+    - description
+    - name
+    type: object
+  models.ChangePasswordInput:
+    properties:
+      new_password:
+        type: string
+      old_password:
+        type: string
+    required:
+    - new_password
+    - old_password
+    type: object
+  models.ChangeUserDetailInput:
+    properties:
+      address:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      phone_number:
+        type: string
+    type: object
+  models.LoginInput:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  models.PaymentProviderInput:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  models.ProductInput:
+    properties:
+      category_id:
+        type: integer
+      description:
+        type: string
+      image_url:
+        type: string
+      name:
+        type: string
+      price:
+        type: integer
+    required:
+    - category_id
+    - description
+    - image_url
+    - name
+    - price
+    type: object
+  models.RegisterInput:
+    properties:
+      address:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      password:
+        type: string
+      phone_number:
+        type: string
+      username:
+        type: string
+    required:
+    - email
+    - first_name
+    - last_name
+    - password
+    - username
+    type: object
+info:
+  contact:
+    email: tengku.romansyah@gmail.com
+    name: Tengku Romansyah
+    url: https://linkedin.com/in/tengkuroman
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+paths:
+  /auth/order/v1/order/delete/{order_detail_id}:
+    delete:
+      description: Delete user's order. A user only can delete their own order.
+      parameters:
+      - description: Param required.
+        in: path
+        name: order_detail_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Delete user's order.
+      tags:
+      - Order Service
+  /auth/order/v1/order/payment/{order_detail_id}:
+    patch:
+      description: Select payment merchant after checkout (order created). A user
+        can only pay their own order.
+      parameters:
+      - description: Param required.
+        in: path
+        name: order_detail_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Select payment provider.
+      tags:
+      - Order Service
+  /auth/order/v1/order/payment/checkout/{order_detail_id}:
+    patch:
+      description: Pay the selected order. A user can only pay their own order.
+      parameters:
+      - description: Param required.
+        in: path
+        name: order_detail_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Pay the order.
+      tags:
+      - Order Service
+  /auth/order/v1/orders:
+    get:
+      description: Get all user's order. Order retrieved only that made by logged
+        user.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Get all user's order.
+      tags:
+      - Order Service
+  /auth/payment/v1/payment:
+    post:
+      description: Post payment provider. Only admin can post it. Switch your role
+        if you are not admin.
+      parameters:
+      - description: Body required.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.PaymentProviderInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: 'Post payment provider (role: admin)'
+      tags:
+      - Payment Service
+  /auth/payment/v1/payment/{payment_provider_id}:
+    delete:
+      description: Delete payment provider. Only admin can delete it. Switch your
+        role if you are not admin.
+      parameters:
+      - description: Param required.
+        in: path
+        name: payment_provider_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: 'Delete payment provider (role: admin)'
+      tags:
+      - Payment Service
+    patch:
+      description: Update payment provider. Only admin update it. Switch your role
+        if you are not admin.
+      parameters:
+      - description: Body required.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.PaymentProviderInput'
+      - description: Param required.
+        in: path
+        name: payment_provider_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: 'Update payment provider (role: admin)'
+      tags:
+      - Payment Service
+  /auth/product/v1/category:
+    post:
+      description: Post product category. Only admin can post category. Switch your
+        role if you are not admin.
+      parameters:
+      - description: Body required.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.CategoryInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: 'Post category (role: admin)'
+      tags:
+      - Product Service
+  /auth/product/v1/category/{category_id}:
+    delete:
+      description: Delete product category. Only admin can delete category. Switch
+        your role if you are not admin.
+      parameters:
+      - description: Param required.
+        in: path
+        name: category_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: 'Delete product category (role: admin)'
+      tags:
+      - Product Service
+    patch:
+      description: Update product category by category_id. Only admin can update category.
+        Switch your role if you are not admin.
+      parameters:
+      - description: Body required.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.CategoryInput'
+      - description: Param required.
+        in: path
+        name: category_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: 'Update product category (role: admin)'
+      tags:
+      - Product Service
+  /auth/product/v1/product:
+    post:
+      description: Post product to marketplace. Switch your role if you are not seller.
+      parameters:
+      - description: Body required.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.ProductInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: 'Post product (role: seller)'
+      tags:
+      - Product Service
+  /auth/product/v1/product/{product_id}:
+    delete:
+      description: Delete posted product by product_id. Seller can only delete their
+        own products. Switch your role if you are not seller.
+      parameters:
+      - description: Param required.
+        in: path
+        name: product_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: 'Delete product (role: seller)'
+      tags:
+      - Product Service
+    patch:
+      description: Update posted product by product_id. Seller can only update their
+        own products. Switch your role if you are not seller.
+      parameters:
+      - description: Body required.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.ProductInput'
+      - description: Param required.
+        in: path
+        name: product_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: 'Update product (role: seller)'
+      tags:
+      - Product Service
+  /auth/shopping/v1/cart:
+    delete:
+      description: Delete shopping session and all items in cart for current logged
+        in user.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Drop shopping cart.
+      tags:
+      - Shopping Service
+    get:
+      description: Get all products from cart. Data retrieved based on logged in user.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Get all products from cart.
+      tags:
+      - Shopping Service
+    patch:
+      description: Update a product quantity in cart.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Update a product quantity in cart.
+      tags:
+      - Shopping Service
+    post:
+      description: Add a product to cart.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Add a product to cart.
+      tags:
+      - Shopping Service
+  /auth/shopping/v1/cart/checkout:
+    get:
+      description: Bring all the items in cart to order.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Checkout shopping cart.
+      tags:
+      - Shopping Service
+  /auth/user/v1/change:
+    patch:
+      description: 'Change user detail: name, email, address, phone number.'
+      parameters:
+      - description: Body required to user detail(s).
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.ChangeUserDetailInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Change user details.
+      tags:
+      - User Service
+  /auth/user/v1/change/password:
+    patch:
+      description: Change user password for all roles.
+      parameters:
+      - description: Body required to change password.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.ChangePasswordInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Change user password.
+      tags:
+      - User Service
+  /auth/user/v1/switch/{role}:
+    patch:
+      description: 'Change user role. Available roles: user, seller, admin.'
+      parameters:
+      - description: 'Available roles: user, seller, admin'
+        in: path
+        name: role
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerToken: []
+      summary: Switch user role.
+      tags:
+      - User Service
+  /order/v1:
+    get:
+      description: Connection health check.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Health check.
+      tags:
+      - Order Service
+  /payment/v1:
+    get:
+      description: Connection health check.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Health check.
+      tags:
+      - Payment Service
+  /payment/v1/payment:
+    get:
+      description: Get payment providers. Authenticated user can access this.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get payment providers.
+      tags:
+      - Payment Service
+  /product/v1:
+    get:
+      description: Connection health check.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Health check.
+      tags:
+      - Product Service
+  /product/v1/categories:
+    get:
+      description: Get all product categories, including unsigned to product categories.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get all product categories.
+      tags:
+      - Product Service
+  /product/v1/category/{category_id}:
+    get:
+      description: Get product category by category_id.
+      parameters:
+      - description: Required param.
+        in: path
+        name: category_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get product category by ID.
+      tags:
+      - Product Service
+  /product/v1/product/{product_id}:
+    get:
+      description: Get specific product by product_id.
+      parameters:
+      - description: Param required.
+        in: path
+        name: product_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get product by ID.
+      tags:
+      - Product Service
+  /product/v1/products:
+    get:
+      description: Get all products available in marketplace.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get all products.
+      tags:
+      - Product Service
+  /product/v1/products/category/{category_id}:
+    get:
+      description: Get specific products by category_id.
+      parameters:
+      - description: Param required.
+        in: path
+        name: category_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get products from specific category.
+      tags:
+      - Product Service
+  /product/v1/products/seller/{user_id}:
+    get:
+      description: Get specific products by seller_id.
+      parameters:
+      - description: Param required.
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get products from specific seller.
+      tags:
+      - Product Service
+  /shopping/v1:
+    get:
+      description: Connection health check.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Health check.
+      tags:
+      - Shopping Service
+  /user/v1:
+    get:
+      description: Connection health check.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Health check.
+      tags:
+      - User Service
+  /user/v1/login:
+    post:
+      description: Logging in to get JWT token to access certain API by roles.
+      parameters:
+      - description: Body required to login.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Login as as user, seller, or admin.
+      tags:
+      - User Service
+  /user/v1/register:
+    post:
+      description: Registering a user from public access.
+      parameters:
+      - description: Body to register a user.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Register a user.
+      tags:
+      - User Service
+securityDefinitions:
+  BearerToken:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
