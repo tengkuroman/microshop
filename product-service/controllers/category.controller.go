@@ -10,6 +10,12 @@ import (
 	"gorm.io/gorm"
 )
 
+// @Summary 	Get all product categories.
+// @Description Get all product categories, including unsigned to product categories.
+// @Tags 		Product Service
+// @Produce 	json
+// @Success 	200 {object} map[string]interface{}
+// @Router 		/product/v1/categories [get]
 func GetAllCategories(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var categories []models.Category
@@ -20,6 +26,13 @@ func GetAllCategories(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
+// @Summary 	Get product category by ID.
+// @Description Get product category by category_id.
+// @Tags 		Product Service
+// @Produce 	json
+// @Success 	200 {object} map[string]interface{}
+// @Router 		/product/v1/category/{category_id} [get]
+// @Param 		category_id path string true "Required param."
 func GetCategoryByID(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var category models.Category
@@ -30,6 +43,14 @@ func GetCategoryByID(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
+// @Summary 	Post category (role: admin)
+// @Description Post product category. Only admin can post category. Switch your role if you are not admin.
+// @Tags 		Product Service
+// @Param 		body body models.CategoryInput true "Body required."
+// @Produce 	json
+// @Success 	200 {object} map[string]interface{}
+// @Router 		/auth/product/v1/category [post]
+// @Security 	BearerToken
 func PostCategory(c *gin.Context) {
 	userRole := c.Request.Header.Get("X-User-Role")
 
@@ -59,6 +80,15 @@ func PostCategory(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
+// @Summary 	Update product category (role: admin)
+// @Description Update product category by category_id. Only admin can update category. Switch your role if you are not admin.
+// @Tags 		Product Service
+// @Param 		body body models.CategoryInput true "Body required."
+// @Produce 	json
+// @Success 	200 {object} map[string]interface{}
+// @Router 		/auth/product/v1//category/{category_id} [patch]
+// @Param 		category_id path int true "Param required."
+// @Security 	BearerToken
 func UpdateCategory(c *gin.Context) {
 	userRole := c.Request.Header.Get("X-User-Role")
 
@@ -91,6 +121,14 @@ func UpdateCategory(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
+// @Summary 	Delete product category (role: admin)
+// @Description Delete product category. Only admin can delete category. Switch your role if you are not admin.
+// @Tags 		Product Service
+// @Produce 	json
+// @Success 	200 {object} map[string]interface{}
+// @Router 		/auth/product/v1/category/{category_id} [delete]
+// @Param 		category_id path int true "Param required."
+// @Security 	BearerToken
 func DeleteCategory(c *gin.Context) {
 	userRole := c.Request.Header.Get("X-User-Role")
 

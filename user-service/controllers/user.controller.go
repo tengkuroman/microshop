@@ -11,6 +11,12 @@ import (
 	"gorm.io/gorm"
 )
 
+// @Summary 	Health check.
+// @Description Connection health check.
+// @Tags 		User Service
+// @Produce 	json
+// @Success 	200 {object} map[string]interface{}
+// @Router 		/user/v1 [get]
 func HealthCheck(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Connection OK!",
@@ -18,6 +24,13 @@ func HealthCheck(c *gin.Context) {
 	})
 }
 
+// @Summary 	Register a user.
+// @Description Registering a user from public access.
+// @Tags 		User Service
+// @Param 		body body models.RegisterInput true "Body to register a user."
+// @Produce 	json
+// @Success 	200 {object} map[string]interface{}
+// @Router 		/user/v1/register [post]
 func Register(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var registerInput models.RegisterInput
@@ -50,6 +63,13 @@ func Register(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
+// @Summary 	Login as as user, seller, or admin.
+// @Description Logging in to get JWT token to access certain API by roles.
+// @Tags 		User Service
+// @Param 		body body models.LoginInput true "Body required to login."
+// @Produce 	json
+// @Success 	200 {object} map[string]interface{}
+// @Router 		/user/v1/login [post]
 func Login(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var loginInput models.LoginInput
@@ -71,6 +91,14 @@ func Login(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
+// @Summary 	Change user password.
+// @Description Change user password for all roles.
+// @Tags 		User Service
+// @Param 		body body models.ChangePasswordInput true "Body required to change password."
+// @Produce 	json
+// @Success 	200 {object} map[string]interface{}
+// @Router 		/auth/user/v1/change/password [patch]
+// @Security 	BearerToken
 func ChangePassword(c *gin.Context) {
 	var changePasswordInput models.ChangePasswordInput
 
@@ -109,6 +137,14 @@ func ChangePassword(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
+// @Summary 	Change user details.
+// @Description Change user detail: name, email, address, phone number.
+// @Tags 		User Service
+// @Param 		body body models.ChangeUserDetailInput true "Body required to user detail(s)."
+// @Produce 	json
+// @Success 	200 {object} map[string]interface{}
+// @Router 		/auth/user/v1/change [patch]
+// @Security 	BearerToken
 func ChangeUserDetail(c *gin.Context) {
 	var changeUserDetailInput models.ChangeUserDetailInput
 
@@ -134,6 +170,14 @@ func ChangeUserDetail(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
+// @Summary 	Switch user role.
+// @Description Change user role: user, seller, admin. Please re-login after switch.
+// @Tags 		User Service
+// @Produce 	json
+// @Success 	200 {object} map[string]interface{}
+// @Router 		/auth/user/v1/switch/{role} [patch]
+// @Param 		role path string true "Available roles: user, seller, admin"
+// @Security 	BearerToken
 func SwitchUser(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var user models.User

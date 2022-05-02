@@ -29,6 +29,12 @@ var (
 	orderBaseURL = fmt.Sprintf("%s:%s", orderHost, orderPort)
 )
 
+// @Summary 	Health check.
+// @Description Connection health check.
+// @Tags 		Shopping Service
+// @Produce 	json
+// @Success 	200 {object} map[string]interface{}
+// @Router 		/shopping/v1 [get]
 func HealthCheck(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Connection OK!",
@@ -36,6 +42,13 @@ func HealthCheck(c *gin.Context) {
 	})
 }
 
+// @Summary 	Add a product to cart.
+// @Description Add a product to cart.
+// @Tags 		Shopping Service
+// @Produce 	json
+// @Success 	200 {object} map[string]interface{}
+// @Router 		/auth/shopping/v1/cart [post]
+// @Security 	BearerToken
 func AddProductToCart(c *gin.Context) {
 	// Check active shopping session by user_id
 	//      if exist then add to current session, update total in session
@@ -110,6 +123,13 @@ func AddProductToCart(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
+// @Summary 	Get all products from cart.
+// @Description Get all products from cart. Data retrieved based on logged in user.
+// @Tags 		Shopping Service
+// @Produce 	json
+// @Success 	200 {object} map[string]interface{}
+// @Router 		/auth/shopping/v1/cart [get]
+// @Security 	BearerToken
 func GetCartItems(c *gin.Context) {
 	// Check active shopping session by user_id
 	//      If exist then get items by shopping session
@@ -136,6 +156,13 @@ func GetCartItems(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
+// @Summary 	Update a product quantity in cart.
+// @Description Update a product quantity in cart.
+// @Tags 		Shopping Service
+// @Produce 	json
+// @Success 	200 {object} map[string]interface{}
+// @Router 		/auth/shopping/v1/cart [patch]
+// @Security 	BearerToken
 func UpdateCartItem(c *gin.Context) {
 	// Check active shopping session by user_id -> get the shopping session id
 	//     If exist then check if in shopping session there is a product_id == update item's product_id
@@ -191,6 +218,13 @@ func UpdateCartItem(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
+// @Summary 	Drop shopping cart.
+// @Description Delete shopping session and all items in cart for current logged in user.
+// @Tags 		Shopping Service
+// @Produce 	json
+// @Success 	200 {object} map[string]interface{}
+// @Router 		/auth/shopping/v1/cart [delete]
+// @Security 	BearerToken
 func DropCart(c *gin.Context) {
 	// Check active shopping session by user_id
 	//		If exist then delete session and delete all cart items related to the session
@@ -213,6 +247,13 @@ func DropCart(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
+// @Summary 	Checkout shopping cart.
+// @Description Bring all the items in cart to order.
+// @Tags 		Shopping Service
+// @Produce 	json
+// @Success 	200 {object} map[string]interface{}
+// @Router 		/auth/shopping/v1/cart/checkout [get]
+// @Security 	BearerToken
 func Checkout(c *gin.Context) {
 	// Check active shopping session by user_id
 	//		If exist then:
