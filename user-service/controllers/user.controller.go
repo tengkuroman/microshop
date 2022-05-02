@@ -171,7 +171,7 @@ func ChangeUserDetail(c *gin.Context) {
 }
 
 // @Summary 	Switch user role.
-// @Description Change user role: user, seller, admin. Please re-login after switch.
+// @Description Change user role. Available roles: user, seller, admin.
 // @Tags 		User Service
 // @Produce 	json
 // @Success 	200 {object} map[string]interface{}
