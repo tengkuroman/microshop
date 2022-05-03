@@ -313,17 +313,32 @@ func Checkout(c *gin.Context) {
 
 	var cartItems []models.CartItem
 	if err := db.Where("shopping_session_id = ?", session.ID).Find(&cartItems).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
 		return
 	}
 
+	var sessionOrder models.ShoppingSessionOrder
+	sessionOrder.UserID = session.UserID
+	sessionOrder.Total = session.Total
+
+	var cartItemsOrder []models.CartItemOrder
+	for i := range cartItems {
+		var cartItemOrder models.CartItemOrder
+
+		cartItemOrder.ProductID = cartItems[i].ProductID
+		cartItemOrder.Quantity = cartItems[i].Quantity
+
+		cartItemsOrder = append(cartItemsOrder, cartItemOrder)
+	}
+
 	data := map[string]interface{}{
-		"session": session,
-		"items":   cartItems,
+		"session": sessionOrder,
+		"items":   cartItemsOrder,
 	}
 
 	client := resty.New()
-	resp, err := client.R().SetBody(data).Post(orderBaseURL + "/order")
+	resp, err := client.R().SetBody(data).Post("http://" + orderBaseURL + "/order")
 
 	if err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
