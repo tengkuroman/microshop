@@ -48,7 +48,11 @@ func GetOrdersDetail(c *gin.Context) {
 	var orders []models.OrderDetail
 	userID := c.Request.Header.Get("X-User-ID")
 
-	db.Where("user_id = ?", userID).Find(&orders)
+	if err := db.Where("user_id = ?", userID).Find(&orders).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	var orderDetailResponse []models.OrderDetailResponse
 	copier.Copy(&orderDetailResponse, &orders)
@@ -85,8 +89,17 @@ func DeleteOrder(c *gin.Context) {
 
 	if orderUserID == userID {
 		var item models.OrderItem
-		db.Where("order_detail_id = ?", order.ID).Delete(&item)
-		db.Delete(&order)
+		if err := db.Where("order_detail_id = ?", order.ID).Delete(&item).Error; err != nil {
+			response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+			c.JSON(http.StatusInternalServerError, response)
+			return
+		}
+
+		if err := db.Delete(&order).Error; err != nil {
+			response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+			c.JSON(http.StatusInternalServerError, response)
+			return
+		}
 
 		response := utils.ResponseAPI("Order deleted successfully!", http.StatusOK, "success", nil)
 		c.JSON(http.StatusOK, response)
@@ -123,7 +136,11 @@ func SelectPaymentProvider(c *gin.Context) {
 	userID := c.Request.Header.Get("X-User-ID")
 
 	if orderUserID == userID {
-		db.Model(&order).Update("payment_provider_id", c.Param("payment_provider_id"))
+		if err := db.Model(&order).Update("payment_provider_id", c.Param("payment_provider_id")).Error; err != nil {
+			response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+			c.JSON(http.StatusInternalServerError, response)
+			return
+		}
 
 		response := utils.ResponseAPI("Set payment provider success!", http.StatusOK, "success", nil)
 		c.JSON(http.StatusOK, response)
@@ -182,7 +199,11 @@ func PayOrder(c *gin.Context) {
 
 			fmt.Println(resp)
 
-			db.Model(&order).Update("payment_status", "paid")
+			if err := db.Model(&order).Update("payment_status", "paid").Error; err != nil {
+				response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+				c.JSON(http.StatusInternalServerError, response)
+				return
+			}
 
 			response := utils.ResponseAPI("Order payment success!", http.StatusOK, "success", nil)
 			c.JSON(http.StatusOK, response)
@@ -215,7 +236,11 @@ func CreateOrder(c *gin.Context) {
 	orderDetail.UserID = orderDetailInput.UserID
 
 	db := c.MustGet("db").(*gorm.DB)
-	db.Create(&orderDetail)
+	if err := db.Create(&orderDetail).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	orderItemsInput := orderInput.Items
 
@@ -230,7 +255,11 @@ func CreateOrder(c *gin.Context) {
 		orderItems = append(orderItems, orderItem)
 	}
 
-	db.Create(&orderItems)
+	if err := db.Create(&orderItems).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	c.JSON(http.StatusOK, nil)
 }
