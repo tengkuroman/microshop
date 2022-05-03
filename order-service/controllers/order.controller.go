@@ -207,7 +207,7 @@ func CreateOrder(c *gin.Context) {
 		return
 	}
 
-	orderDetailInput := orderInput.Data.Session
+	orderDetailInput := orderInput.Session
 
 	var orderDetail models.OrderDetail
 	orderDetail.Total = orderDetailInput.Total
@@ -217,7 +217,7 @@ func CreateOrder(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	db.Create(&orderDetail)
 
-	orderItemsInput := orderInput.Data.Items
+	orderItemsInput := orderInput.Items
 
 	var orderItems []models.OrderItem
 	for i := range orderItemsInput {
