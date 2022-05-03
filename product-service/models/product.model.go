@@ -22,6 +22,6 @@ type ProductResponse struct {
 	Description string `json:"description"`
 	ImageURL    string `json:"image_url"`
 	Price       int    `json:"price"`
-	UserID      uint   `json:"user_id"`
+	UserID      uint   `json:"seller_id"`
 	CategoryID  uint   `json:"category_id"`
 }
