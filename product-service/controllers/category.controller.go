@@ -3,6 +3,7 @@ package controllers
 import (
 	"net/http"
 
+	"github.com/jinzhu/copier"
 	"github.com/tengkuroman/microshop/product-service/models"
 	"github.com/tengkuroman/microshop/product-service/utils"
 
@@ -22,7 +23,10 @@ func GetAllCategories(c *gin.Context) {
 
 	db.Find(&categories)
 
-	response := utils.ResponseAPI("Get all categories success!", http.StatusOK, "success", categories)
+	var categoriesResponse []models.CategoryResponse
+	copier.Copy(&categoriesResponse, &categories)
+
+	response := utils.ResponseAPI("Get all categories success!", http.StatusOK, "success", categoriesResponse)
 	c.JSON(http.StatusOK, response)
 }
 
@@ -39,7 +43,10 @@ func GetCategoryByID(c *gin.Context) {
 
 	db.First(&category, c.Param("category_id"))
 
-	response := utils.ResponseAPI("Get category success!", http.StatusOK, "success", category)
+	var categoryResponse models.CategoryResponse
+	copier.Copy(&categoryResponse, &category)
+
+	response := utils.ResponseAPI("Get category success!", http.StatusOK, "success", categoryResponse)
 	c.JSON(http.StatusOK, response)
 }
 
@@ -76,7 +83,7 @@ func PostCategory(c *gin.Context) {
 
 	db.Create(&category)
 
-	response := utils.ResponseAPI("Category created successfully!", http.StatusOK, "success", category)
+	response := utils.ResponseAPI("Category created successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
 }
 
@@ -99,9 +106,9 @@ func UpdateCategory(c *gin.Context) {
 	}
 
 	db := c.MustGet("db").(*gorm.DB)
-	var input models.CategoryInput
+	var categoryInput models.CategoryInput
 
-	if err := c.ShouldBindJSON(&input); err != nil {
+	if err := c.ShouldBindJSON(&categoryInput); err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
 		return
@@ -115,9 +122,12 @@ func UpdateCategory(c *gin.Context) {
 		return
 	}
 
-	db.Model(&category).Updates(input)
+	db.Model(&category).Updates(categoryInput)
 
-	response := utils.ResponseAPI("Category data changed successfully!", http.StatusOK, "success", input)
+	var categoryResponse models.CategoryResponse
+	copier.Copy(&categoryResponse, &category)
+
+	response := utils.ResponseAPI("Category data changed successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
 }
 
@@ -149,6 +159,6 @@ func DeleteCategory(c *gin.Context) {
 
 	db.Delete(&category)
 
-	response := utils.ResponseAPI("Category deleted successfully!", http.StatusOK, "success", category)
+	response := utils.ResponseAPI("Category deleted successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
 }

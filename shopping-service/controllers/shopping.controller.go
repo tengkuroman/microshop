@@ -8,6 +8,7 @@ import (
 	"strconv"
 
 	"github.com/go-resty/resty/v2"
+	"github.com/jinzhu/copier"
 	"github.com/tengkuroman/microshop/shopping-service/models"
 	"github.com/tengkuroman/microshop/shopping-service/utils"
 
@@ -94,7 +95,7 @@ func AddProductToCart(c *gin.Context) {
 		itemTotalPrice := product.Price * item.Quantity
 		db.Model(&session).Update("total", itemTotalPrice)
 
-		response := utils.ResponseAPI("Product added to the cart!", http.StatusOK, "success", session)
+		response := utils.ResponseAPI("Product added to the cart!", http.StatusOK, "success", nil)
 		c.JSON(http.StatusOK, response)
 
 		return
@@ -119,7 +120,7 @@ func AddProductToCart(c *gin.Context) {
 	totalPrice := session.Total + item.Quantity*product.Price
 	db.Model(&session).Update("total", totalPrice)
 
-	response := utils.ResponseAPI("Product added to the cart!", http.StatusOK, "success", session)
+	response := utils.ResponseAPI("Product added to the cart!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
 }
 
@@ -152,7 +153,10 @@ func GetCartItems(c *gin.Context) {
 		return
 	}
 
-	response := utils.ResponseAPI("Get cart item success!", http.StatusOK, "success", items)
+	var itemsResponse []models.CartItemResponse
+	copier.Copy(&itemsResponse, &items)
+
+	response := utils.ResponseAPI("Get cart item success!", http.StatusOK, "success", itemsResponse)
 	c.JSON(http.StatusOK, response)
 }
 
@@ -214,7 +218,7 @@ func UpdateCartItem(c *gin.Context) {
 	totalPrice := session.Total + product.Price*int(math.Abs(float64(item.Quantity-itemOldQuantity)))
 	db.Model(&session).Update("total", totalPrice)
 
-	response := utils.ResponseAPI("Cart item updated successfully!", http.StatusOK, "success", item)
+	response := utils.ResponseAPI("Cart item updated successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
 }
 
@@ -290,10 +294,12 @@ func Checkout(c *gin.Context) {
 		return
 	}
 
+	fmt.Println(resp)
+
 	var modelCartItem models.CartItem
 	db.Where("session_id = ?", session.ID).Delete(&modelCartItem)
 	db.Delete(&session)
 
-	response := utils.ResponseAPI("Order created successfully!", http.StatusOK, "success", resp.Body())
+	response := utils.ResponseAPI("Order created successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
 }

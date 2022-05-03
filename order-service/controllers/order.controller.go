@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/go-resty/resty/v2"
+	"github.com/jinzhu/copier"
 	"github.com/tengkuroman/microshop/order-service/models"
 	"github.com/tengkuroman/microshop/order-service/utils"
 
@@ -49,7 +50,10 @@ func GetOrdersDetail(c *gin.Context) {
 
 	db.Where("user_id = ?", userID).Find(&orders)
 
-	response := utils.ResponseAPI("Get orders detail success!", http.StatusOK, "success", orders)
+	var orderDetailResponse []models.OrderDetailResponse
+	copier.Copy(&orderDetailResponse, &orders)
+
+	response := utils.ResponseAPI("Get orders detail success!", http.StatusOK, "success", orderDetailResponse)
 	c.JSON(http.StatusOK, response)
 }
 

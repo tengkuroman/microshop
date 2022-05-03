@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/jinzhu/copier"
 	"github.com/tengkuroman/microshop/product-service/models"
 	"github.com/tengkuroman/microshop/product-service/utils"
 
@@ -37,7 +38,10 @@ func GetAllProducts(c *gin.Context) {
 
 	db.Find(&products)
 
-	response := utils.ResponseAPI("Get all products success!", http.StatusOK, "success", products)
+	var productsResponse models.CategoryResponse
+	copier.Copy(&productsResponse, &products)
+
+	response := utils.ResponseAPI("Get all products success!", http.StatusOK, "success", productsResponse)
 	c.JSON(http.StatusOK, response)
 }
 
@@ -54,7 +58,10 @@ func GetProductByID(c *gin.Context) {
 
 	db.First(&product, c.Param("product_id"))
 
-	response := utils.ResponseAPI("Get product success!", http.StatusOK, "success", product)
+	var productResponse models.CategoryResponse
+	copier.Copy(&productResponse, &product)
+
+	response := utils.ResponseAPI("Get product success!", http.StatusOK, "success", productResponse)
 	c.JSON(http.StatusOK, response)
 }
 
@@ -71,7 +78,10 @@ func GetProductsBySellerID(c *gin.Context) {
 
 	db.Where("user_id = ?", c.Param("user_id")).Find(&products)
 
-	response := utils.ResponseAPI("Get products by seller ID success!", http.StatusOK, "success", products)
+	var productsResponse []models.CategoryResponse
+	copier.Copy(&productsResponse, &products)
+
+	response := utils.ResponseAPI("Get products by seller ID success!", http.StatusOK, "success", productsResponse)
 	c.JSON(http.StatusOK, response)
 }
 
@@ -88,7 +98,10 @@ func GetProductsByCategoryID(c *gin.Context) {
 
 	db.Where("category_id = ?", c.Param("category_id")).Find(&products)
 
-	response := utils.ResponseAPI("Get products by category ID success!", http.StatusOK, "success", products)
+	var productsResponse []models.CategoryResponse
+	copier.Copy(&productsResponse, &products)
+
+	response := utils.ResponseAPI("Get products by category ID success!", http.StatusOK, "success", productsResponse)
 	c.JSON(http.StatusOK, response)
 }
 
@@ -130,7 +143,7 @@ func PostProduct(c *gin.Context) {
 
 	db.Create(&product)
 
-	response := utils.ResponseAPI("Product created successfully!", http.StatusOK, "success", product)
+	response := utils.ResponseAPI("Product created successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
 }
 
@@ -163,17 +176,17 @@ func UpdateProduct(c *gin.Context) {
 		return
 	}
 
-	var input models.ProductInput
+	var productInput models.ProductInput
 
-	if err := c.ShouldBindJSON(&input); err != nil {
+	if err := c.ShouldBindJSON(&productInput); err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
 		return
 	}
 
-	db.Model(&product).Updates(input)
+	db.Model(&product).Updates(productInput)
 
-	response := utils.ResponseAPI("Product data changed successfully!", http.StatusOK, "success", input)
+	response := utils.ResponseAPI("Product data changed successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
 }
 
@@ -206,6 +219,6 @@ func DeleteProduct(c *gin.Context) {
 
 	db.Delete(&product)
 
-	response := utils.ResponseAPI("Product deleted successfully!", http.StatusOK, "success", product)
+	response := utils.ResponseAPI("Product deleted successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
 }

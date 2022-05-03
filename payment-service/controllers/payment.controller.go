@@ -3,6 +3,7 @@ package controllers
 import (
 	"net/http"
 
+	"github.com/jinzhu/copier"
 	"github.com/tengkuroman/microshop/payment-service/utils"
 
 	"github.com/tengkuroman/microshop/payment-service/models"
@@ -36,7 +37,10 @@ func GetPaymentProviders(c *gin.Context) {
 
 	db.Find(&providers)
 
-	response := utils.ResponseAPI("Get payment providers success!", http.StatusOK, "success", providers)
+	var providersResponse []models.PaymentProviderResponse
+	copier.Copy(&providersResponse, &providers)
+
+	response := utils.ResponseAPI("Get payment providers success!", http.StatusOK, "success", providersResponse)
 	c.JSON(http.StatusOK, response)
 }
 
@@ -58,21 +62,21 @@ func PostPaymentProvider(c *gin.Context) {
 	}
 
 	db := c.MustGet("db").(*gorm.DB)
-	var input models.PaymentProviderInput
+	var paymentProviderInput models.PaymentProviderInput
 
-	if err := c.ShouldBindJSON(&input); err != nil {
+	if err := c.ShouldBindJSON(&paymentProviderInput); err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
 		return
 	}
 
 	provider := models.PaymentProvider{
-		Name: input.Name,
+		Name: paymentProviderInput.Name,
 	}
 
 	db.Create(&provider)
 
-	response := utils.ResponseAPI("Payment provider created successfully!", http.StatusOK, "success", provider)
+	response := utils.ResponseAPI("Payment provider created successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
 }
 
@@ -96,9 +100,9 @@ func UpdatePaymentProvider(c *gin.Context) {
 
 	db := c.MustGet("db").(*gorm.DB)
 
-	var input models.PaymentProviderInput
+	var paymentProviderInput models.PaymentProviderInput
 
-	if err := c.ShouldBindJSON(&input); err != nil {
+	if err := c.ShouldBindJSON(&paymentProviderInput); err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
 		return
@@ -112,9 +116,9 @@ func UpdatePaymentProvider(c *gin.Context) {
 		return
 	}
 
-	db.Model(&provider).Updates(input)
+	db.Model(&provider).Updates(paymentProviderInput)
 
-	response := utils.ResponseAPI("Payment provider changed successfully!", http.StatusOK, "success", provider)
+	response := utils.ResponseAPI("Payment provider changed successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
 }
 
@@ -146,7 +150,7 @@ func DeletePaymentProvider(c *gin.Context) {
 
 	db.Delete(&provider)
 
-	response := utils.ResponseAPI("Payment provider deleted successfully!", http.StatusOK, "success", provider)
+	response := utils.ResponseAPI("Payment provider deleted successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
 }
 
