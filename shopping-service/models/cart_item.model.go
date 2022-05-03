@@ -11,9 +11,9 @@ type CartItem struct {
 	ShoppingSessionID uint
 }
 
-type CartItemUpdateInput struct {
-	Quantity  int  `binding:"required"`
-	ProductID uint `binding:"required"`
+type CartItemInput struct {
+	Quantity  int  `binding:"required" json:"quantity"`
+	ProductID uint `binding:"required" json:"product_id"`
 }
 
 type CartItemResponse struct {
