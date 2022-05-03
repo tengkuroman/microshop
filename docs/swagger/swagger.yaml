@@ -452,6 +452,13 @@ paths:
       - Shopping Service
     patch:
       description: Update a product quantity in cart.
+      parameters:
+      - description: Body to update product quantity in the cart.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.CartItemInput'
       produces:
       - application/json
       responses:

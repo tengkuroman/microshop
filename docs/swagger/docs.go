@@ -595,6 +595,17 @@ const docTemplate = `{
                     "Shopping Service"
                 ],
                 "summary": "Update a product quantity in cart.",
+                "parameters": [
+                    {
+                        "description": "Body to update product quantity in the cart.",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CartItemInput"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
