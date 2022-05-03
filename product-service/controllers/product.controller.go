@@ -38,7 +38,7 @@ func GetAllProducts(c *gin.Context) {
 
 	db.Find(&products)
 
-	var productsResponse models.CategoryResponse
+	var productsResponse []models.ProductResponse
 	copier.Copy(&productsResponse, &products)
 
 	response := utils.ResponseAPI("Get all products success!", http.StatusOK, "success", productsResponse)
@@ -58,7 +58,7 @@ func GetProductByID(c *gin.Context) {
 
 	db.First(&product, c.Param("product_id"))
 
-	var productResponse models.CategoryResponse
+	var productResponse models.ProductResponse
 	copier.Copy(&productResponse, &product)
 
 	response := utils.ResponseAPI("Get product success!", http.StatusOK, "success", productResponse)
@@ -78,7 +78,7 @@ func GetProductsBySellerID(c *gin.Context) {
 
 	db.Where("user_id = ?", c.Param("user_id")).Find(&products)
 
-	var productsResponse []models.CategoryResponse
+	var productsResponse []models.ProductResponse
 	copier.Copy(&productsResponse, &products)
 
 	response := utils.ResponseAPI("Get products by seller ID success!", http.StatusOK, "success", productsResponse)
@@ -98,7 +98,7 @@ func GetProductsByCategoryID(c *gin.Context) {
 
 	db.Where("category_id = ?", c.Param("category_id")).Find(&products)
 
-	var productsResponse []models.CategoryResponse
+	var productsResponse []models.ProductResponse
 	copier.Copy(&productsResponse, &products)
 
 	response := utils.ResponseAPI("Get products by category ID success!", http.StatusOK, "success", productsResponse)
