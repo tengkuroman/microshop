@@ -170,7 +170,7 @@ func GetCartItems(c *gin.Context) {
 
 	var items []models.CartItem
 
-	if err := db.Where("session_id = ?", session.ID).Find(&items).Error; err != nil {
+	if err := db.Where("shopping_session_id = ?", session.ID).Find(&items).Error; err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
 		return
@@ -223,7 +223,11 @@ func UpdateCartItem(c *gin.Context) {
 
 	itemOldQuantity := item.Quantity
 
-	db.Model(&item).Update("quantity", updateItem.Quantity)
+	if err := db.Model(&item).Update("quantity", updateItem.Quantity).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	productID := strconv.FormatUint(uint64(item.ProductID), 10)
 	client := resty.New()
@@ -267,8 +271,17 @@ func DropCart(c *gin.Context) {
 	}
 
 	var item models.CartItem
-	db.Where("session_id = ?", session.ID).Delete(&item)
-	db.Delete(&session)
+	if err := db.Where("shopping_session_id = ?", session.ID).Delete(&item).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
+
+	if err := db.Delete(&session).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	response := utils.ResponseAPI("Cart dropped successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
@@ -298,7 +311,7 @@ func Checkout(c *gin.Context) {
 	}
 
 	var cartItems []models.CartItem
-	if err := db.Where("session_id = ?", session.ID).Find(&cartItems).Error; err != nil {
+	if err := db.Where("shopping_session_id = ?", session.ID).Find(&cartItems).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -320,8 +333,17 @@ func Checkout(c *gin.Context) {
 	fmt.Println(resp)
 
 	var modelCartItem models.CartItem
-	db.Where("session_id = ?", session.ID).Delete(&modelCartItem)
-	db.Delete(&session)
+	if err := db.Where("shopping_session_id = ?", session.ID).Delete(&modelCartItem).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
+
+	if err := db.Delete(&session).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	response := utils.ResponseAPI("Order created successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
