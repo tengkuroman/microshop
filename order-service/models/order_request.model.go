@@ -2,18 +2,16 @@ package models
 
 // Model for service invocation from shopping service
 type CartItemInput struct {
-	Quantity  int  `binding:"required"`
+	Quantity  int  `binding:"required" json:"quantity"`
 	ProductID uint `json:"product_id" binding:"required"`
 }
 
 type ShoppingSessionInput struct {
-	Total  int  `binding:"required"`
+	Total  int  `binding:"required" json:"total"`
 	UserID uint `json:"user_id" binding:"required"`
 }
 
 type OrderInput struct {
-	Data struct {
-		Session ShoppingSessionInput `binding:"required"`
-		Items   []CartItemInput      `binding:"required"`
-	} `binding:"required"`
+	Session ShoppingSessionInput `binding:"required" json:"session"`
+	Items   []CartItemInput      `binding:"required" json:"items"`
 }
