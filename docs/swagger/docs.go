@@ -796,7 +796,7 @@ const docTemplate = `{
         },
         "/payment/v1/payment": {
             "get": {
-                "description": "Get payment providers. Authenticated user can access this.",
+                "description": "Get payment providers.",
                 "produces": [
                     "application/json"
                 ],

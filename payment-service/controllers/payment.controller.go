@@ -26,7 +26,7 @@ func HealthCheck(c *gin.Context) {
 }
 
 // @Summary 	Get payment providers.
-// @Description Get payment providers. Authenticated user can access this.
+// @Description Get payment providers.
 // @Tags 		Payment Service
 // @Produce 	json
 // @Success 	200 {object} map[string]interface{}
