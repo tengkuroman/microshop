@@ -94,7 +94,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/auth/order/v1/order/payment/{order_detail_id}": {
+        "/auth/order/v1/order/payment/{order_detail_id}/{payment_provider_id}": {
             "patch": {
                 "security": [
                     {
@@ -114,6 +114,13 @@ const docTemplate = `{
                         "type": "integer",
                         "description": "Param required.",
                         "name": "order_detail_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Param required.",
+                        "name": "payment_provider_id",
                         "in": "path",
                         "required": true
                     }

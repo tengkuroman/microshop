@@ -132,7 +132,7 @@ paths:
       summary: Delete user's order.
       tags:
       - Order Service
-  /auth/order/v1/order/payment/{order_detail_id}:
+  /auth/order/v1/order/payment/{order_detail_id}/{payment_provider_id}:
     patch:
       description: Select payment merchant after checkout (order created). A user
         can only pay their own order.
@@ -140,6 +140,11 @@ paths:
       - description: Param required.
         in: path
         name: order_detail_id
+        required: true
+        type: integer
+      - description: Param required.
+        in: path
+        name: payment_provider_id
         required: true
         type: integer
       produces:

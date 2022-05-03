@@ -114,8 +114,9 @@ func DeleteOrder(c *gin.Context) {
 // @Tags 		Order Service
 // @Produce 	json
 // @Success 	200 {object} map[string]interface{}
-// @Router 		/auth/order/v1/order/payment/{order_detail_id} [patch]
+// @Router 		/auth/order/v1/order/payment/{order_detail_id}/{payment_provider_id} [patch]
 // @Param 		order_detail_id path int true "Param required."
+// @Param 		payment_provider_id path int true "Param required."
 // @Security 	BearerToken
 func SelectPaymentProvider(c *gin.Context) {
 	// Check if an order exist based on param :order_detail_id
