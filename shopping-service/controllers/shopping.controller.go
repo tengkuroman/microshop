@@ -46,6 +46,7 @@ func HealthCheck(c *gin.Context) {
 // @Summary 	Add a product to cart.
 // @Description Add a product to cart.
 // @Tags 		Shopping Service
+// @Param 		body body models.CartItemInput true "Body to add product to the cart."
 // @Produce 	json
 // @Success 	200 {object} map[string]interface{}
 // @Router 		/auth/shopping/v1/cart [post]
@@ -57,15 +58,18 @@ func AddProductToCart(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var session models.ShoppingSession
 	var item models.CartItem
+	var itemInput models.CartItemInput
 
-	if err := c.ShouldBindJSON(&item); err != nil {
+	if err := c.ShouldBindJSON(&itemInput); err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
 		return
 	}
 
-	xUserID := c.Request.Header.Get("X-User-ID")
+	item.Quantity = itemInput.Quantity
+	item.ProductID = itemInput.ProductID
 
+	xUserID := c.Request.Header.Get("X-User-ID")
 	if err := db.Where("user_id = ?", xUserID).Last(&session).Error; err != nil {
 		userID, err := strconv.ParseUint(fmt.Sprintf("%v", xUserID), 10, 32)
 		if err != nil {
@@ -75,14 +79,22 @@ func AddProductToCart(c *gin.Context) {
 		}
 
 		session.UserID = uint(userID)
-		db.Create(&session)
+		if err := db.Create(&session).Error; err != nil {
+			response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+			c.JSON(http.StatusInternalServerError, response)
+			return
+		}
 
 		item.ShoppingSessionID = session.ID
-		db.Create(&item)
+		if err := db.Create(&item).Error; err != nil {
+			response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+			c.JSON(http.StatusInternalServerError, response)
+			return
+		}
 
 		productID := strconv.FormatUint(uint64(item.ProductID), 10)
 		client := resty.New()
-		res, err := client.R().SetResult(&models.ProductResponse{}).Get(productBaseURL + "/product/" + productID)
+		res, err := client.R().SetResult(&models.ProductResponse{}).Get("http://" + productBaseURL + "/product/" + productID)
 
 		if err != nil {
 			response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
@@ -93,21 +105,28 @@ func AddProductToCart(c *gin.Context) {
 		product := res.Result().(*models.ProductResponse).Data
 
 		itemTotalPrice := product.Price * item.Quantity
-		db.Model(&session).Update("total", itemTotalPrice)
+		if err := db.Model(&session).Update("total", itemTotalPrice).Error; err != nil {
+			response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+			c.JSON(http.StatusInternalServerError, response)
+			return
+		}
 
 		response := utils.ResponseAPI("Product added to the cart!", http.StatusOK, "success", nil)
 		c.JSON(http.StatusOK, response)
-
 		return
 	}
 
 	item.ShoppingSessionID = session.ID
-	db.Create(&item)
+	if err := db.Create(&item).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	productID := strconv.FormatUint(uint64(item.ProductID), 10)
 
 	client := resty.New()
-	res, err := client.R().SetResult(&models.ProductResponse{}).Get(productBaseURL + "/product/" + productID)
+	res, err := client.R().SetResult(&models.ProductResponse{}).Get("http://" + productBaseURL + "/product/" + productID)
 
 	if err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
@@ -118,7 +137,11 @@ func AddProductToCart(c *gin.Context) {
 	product := res.Result().(*models.ProductResponse).Data
 
 	totalPrice := session.Total + item.Quantity*product.Price
-	db.Model(&session).Update("total", totalPrice)
+	if err := db.Model(&session).Update("total", totalPrice).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	response := utils.ResponseAPI("Product added to the cart!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
@@ -182,7 +205,7 @@ func UpdateCartItem(c *gin.Context) {
 		return
 	}
 
-	var updateItem models.CartItemUpdateInput
+	var updateItem models.CartItemInput
 
 	if err := c.ShouldBindJSON(&updateItem); err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusBadRequest, "error", nil)
