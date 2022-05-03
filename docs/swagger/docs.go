@@ -536,6 +536,17 @@ const docTemplate = `{
                     "Shopping Service"
                 ],
                 "summary": "Add a product to cart.",
+                "parameters": [
+                    {
+                        "description": "Body to add product to the cart.",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CartItemInput"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1084,6 +1095,21 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "models.CartItemInput": {
+            "type": "object",
+            "required": [
+                "product_id",
+                "quantity"
+            ],
+            "properties": {
+                "product_id": {
+                    "type": "integer"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
+            }
+        },
         "models.CategoryInput": {
             "type": "object",
             "required": [

@@ -1,4 +1,14 @@
 definitions:
+  models.CartItemInput:
+    properties:
+      product_id:
+        type: integer
+      quantity:
+        type: integer
+    required:
+    - product_id
+    - quantity
+    type: object
   models.CategoryInput:
     properties:
       description:
@@ -457,6 +467,13 @@ paths:
       - Shopping Service
     post:
       description: Add a product to cart.
+      parameters:
+      - description: Body to add product to the cart.
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.CartItemInput'
       produces:
       - application/json
       responses:
