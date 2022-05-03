@@ -1,5 +1,6 @@
 package models
 
+// Model for service invocation from shopping service
 type CartItemInput struct {
 	Quantity  int  `binding:"required"`
 	ProductID uint `json:"product_id" binding:"required"`

@@ -15,3 +15,8 @@ type PaymentRequest struct {
 	Total             int
 	PaymentProviderID int
 }
+
+type PaymentProviderResponse struct {
+	ID   uint   `json:"id"`
+	Name string `json:"name"`
+}

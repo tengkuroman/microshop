@@ -8,3 +8,9 @@ type OrderItem struct {
 	ProductID     uint
 	OrderDetailID uint
 }
+
+type OrderItemResponse struct {
+	ID        uint `json:"id"`
+	Quantity  uint `json:"quantity"`
+	ProductID uint `json:"product_id"`
+}
