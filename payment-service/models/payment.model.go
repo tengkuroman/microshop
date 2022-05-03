@@ -12,8 +12,8 @@ type PaymentProviderInput struct {
 }
 
 type PaymentRequest struct {
-	Total             int
-	PaymentProviderID int
+	Total             int `json:"total"`
+	PaymentProviderID int `json:"payment_provider_id"`
 }
 
 type PaymentProviderResponse struct {
