@@ -186,6 +186,7 @@ func GetCartItems(c *gin.Context) {
 // @Summary 	Update a product quantity in cart.
 // @Description Update a product quantity in cart.
 // @Tags 		Shopping Service
+// @Param 		body body models.CartItemInput true "Body to update product quantity in the cart."
 // @Produce 	json
 // @Success 	200 {object} map[string]interface{}
 // @Router 		/auth/shopping/v1/cart [patch]
@@ -231,7 +232,7 @@ func UpdateCartItem(c *gin.Context) {
 
 	productID := strconv.FormatUint(uint64(item.ProductID), 10)
 	client := resty.New()
-	res, err := client.R().SetResult(&models.ProductResponse{}).Get(productBaseURL + "/product/" + productID)
+	res, err := client.R().SetResult(&models.ProductResponse{}).Get("http://" + productBaseURL + "/product/" + productID)
 
 	if err != nil {
 		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
