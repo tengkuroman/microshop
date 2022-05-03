@@ -1,0 +1,245 @@
+version: "3.9"
+
+services:
+  #################
+  ## API Gateway ##
+  #################
+  api-gateway:
+    image: kong:2.3.3
+    restart: always
+    environment:
+      - KONG_LOG_LEVEL=debug
+      - KONG_DATABASE=postgres
+      - KONG_PG_HOST=api-gateway-db
+      - KONG_PG_DATABASE=db_api_gateway
+      - KONG_PG_USER=postgres
+      - KONG_PG_PASSWORD=password
+      - KONG_PROXY_ACCESS_LOG=/dev/stdout
+      - KONG_ADMIN_ACCESS_LOG=/dev/stdout
+      - KONG_PROXY_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_LISTEN=0.0.0.0:8001
+      - KONG_PROXY_LISTEN=0.0.0.0:8000
+      - KONG_PROXY_LISTEN_SSL=0.0.0.0:8443
+      - KONG_UNTRUSTED_LUA=on
+    ports:
+      - 8000:8000
+      - 8443:8443
+      - 8001:8001
+      - 8444:8444
+    # volumes:
+    #   - ./data/api-gateway-data/plugin:/plugins
+    #   - ./data/api-gateway-data/config:/etc/kong
+    depends_on:
+      - api-gateway-migrator
+      - api-gateway-db
+
+  api-gateway-db:
+    image: postgres:9.6
+    restart: always
+    volumes:
+      - ./data/api-gateway-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=db_api_gateway
+    expose:
+      - 5432
+
+  api-gateway-migrator:
+    image: kong:2.3.3
+    restart: on-failure
+    command: kong migrations bootstrap
+    environment:
+      - KONG_DATABASE=postgres
+      - KONG_PG_HOST=api-gateway-db
+      - KONG_PG_DATABASE=db_api_gateway
+      - KONG_PG_USER=postgres
+      - KONG_PG_PASSWORD=password
+    depends_on:
+      - api-gateway-db
+
+  # GUI service to configure API gateway
+  konga-preparator:
+    image: pantsel/konga:0.14.9
+    command: "-c prepare -a postgres -u postgresql://postgres:password@api-gateway-db:5432/db_konga"
+    restart: on-failure
+    depends_on:
+      - api-gateway-db
+
+  konga:
+    image: pantsel/konga:0.14.9
+    restart: always
+    environment:
+      - DB_ADAPTER=postgres
+      - DB_HOST=api-gateway-db
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - TOKEN_SECRET=tokensecret
+      - DB_DATABASE=db_konga
+      - NODE_ENV=production
+    depends_on:
+      - api-gateway-db
+    ports:
+      - "1337:1337"
+
+  ############################
+  ## Ecommerce App Services ##
+  ############################
+  order-srv:
+    build: order-service
+    environment:
+    - ORDER_DB_USERNAME=postgres
+    - ORDER_DB_PASSWORD=password
+    - ORDER_DB_HOST=order-db
+    - ORDER_DB_PORT=5432
+    - ORDER_DB_NAME=db_order
+    # payment connection config
+    - PAYMENT_HOST=payment-srv
+    - PAYMENT_PORT=8082
+    depends_on:
+    - order-db
+    - payment-srv
+    restart: always
+    expose:
+      - 8080
+      - 8081
+      - 8082
+
+  order-db:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_DB=db_order
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ./data/order-data:/var/lib/postgresql/data
+    restart: always
+    ports:
+      - 5455:5432
+  
+  payment-srv:
+    build: payment-service
+    environment:
+    - PAYMENT_DB_USERNAME=postgres
+    - PAYMENT_DB_PASSWORD=password
+    - PAYMENT_DB_HOST=payment-db
+    - PAYMENT_DB_PORT=5432
+    - PAYMENT_DB_NAME=db_payment
+    depends_on:
+    - payment-db
+    restart: always
+    expose:
+      - 8080
+      - 8081
+      - 8082
+
+  payment-db:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_DB=db_payment
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ./data/payment-data:/var/lib/postgresql/data
+    restart: always
+  
+  product-srv:
+    build: product-service
+    environment:
+    - PRODUCT_DB_USERNAME=postgres
+    - PRODUCT_DB_PASSWORD=password
+    - PRODUCT_DB_HOST=product-db
+    - PRODUCT_DB_PORT=5432
+    - PRODUCT_DB_NAME=db_product
+    depends_on:
+    - product-db
+    restart: always
+    expose:
+      - 8080
+      - 8081
+
+  product-db:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_DB=db_product
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ./data/product-data:/var/lib/postgresql/data
+    restart: always
+
+  shopping-srv:
+    build: shopping-service
+    environment:
+    - SHOPPING_DB_USERNAME=postgres
+    - SHOPPING_DB_PASSWORD=password
+    - SHOPPING_DB_HOST=shopping-db
+    - SHOPPING_DB_PORT=5432
+    - SHOPPING_DB_NAME=db_shopping
+    # product connection config
+    - PRODUCT_HOST=product-srv
+    - PRODUCT_PORT=8080
+    # order connection config
+    - ORDER_HOST=order-srv
+    - ORDER_PORT=8082
+    depends_on:
+    - shopping-db
+    - product-srv
+    - order-srv
+    restart: always
+    expose:
+      - 8080
+      - 8081
+
+  shopping-db:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_DB=db_shopping
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ./data/shopping-data:/var/lib/postgresql/data
+    restart: always
+    ports:
+      - 5433:5432
+
+  user-srv:
+    build: user-service
+    environment:
+    - USER_DB_USERNAME=postgres
+    - USER_DB_PASSWORD=password
+    - USER_DB_HOST=user-db
+    - USER_DB_PORT=5432
+    - USER_DB_NAME=db_user
+    # Token generation config
+    - API_SECRET=apisecret
+    - TOKEN_HOUR_LIFESPAN=2
+    depends_on:
+    - user-db
+    restart: always
+    expose:
+      - 8080
+      - 8081
+      - 8082
+
+  user-db:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_DB=db_user
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ./data/user-data:/var/lib/postgresql/data
+    restart: always
+    ports:
+      - 5432:5432
+
+  ###########################
+  ## Documentation Service ##
+  ###########################
+  docs:
+    build: docs
+    restart: always
+    expose:
+      - 8080
