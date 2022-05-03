@@ -21,7 +21,11 @@ func GetAllCategories(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var categories []models.Category
 
-	db.Find(&categories)
+	if err := db.Find(&categories).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	var categoriesResponse []models.CategoryResponse
 	copier.Copy(&categoriesResponse, &categories)
@@ -41,7 +45,11 @@ func GetCategoryByID(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var category models.Category
 
-	db.First(&category, c.Param("category_id"))
+	if err := db.First(&category, c.Param("category_id")).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	var categoryResponse models.CategoryResponse
 	copier.Copy(&categoryResponse, &category)
@@ -81,7 +89,11 @@ func PostCategory(c *gin.Context) {
 		Description: input.Description,
 	}
 
-	db.Create(&category)
+	if err := db.Create(&category).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	response := utils.ResponseAPI("Category created successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
@@ -122,7 +134,11 @@ func UpdateCategory(c *gin.Context) {
 		return
 	}
 
-	db.Model(&category).Updates(categoryInput)
+	if err := db.Model(&category).Updates(categoryInput).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	var categoryResponse models.CategoryResponse
 	copier.Copy(&categoryResponse, &category)
@@ -157,7 +173,11 @@ func DeleteCategory(c *gin.Context) {
 		return
 	}
 
-	db.Delete(&category)
+	if err := db.Delete(&category).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	response := utils.ResponseAPI("Category deleted successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)

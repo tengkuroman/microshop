@@ -36,7 +36,11 @@ func GetAllProducts(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var products []models.Product
 
-	db.Find(&products)
+	if err := db.Find(&products).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	var productsResponse []models.ProductResponse
 	copier.Copy(&productsResponse, &products)
@@ -56,7 +60,11 @@ func GetProductByID(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var product models.Product
 
-	db.First(&product, c.Param("product_id"))
+	if err := db.First(&product, c.Param("product_id")).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	var productResponse models.ProductResponse
 	copier.Copy(&productResponse, &product)
@@ -76,7 +84,11 @@ func GetProductsBySellerID(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var products []models.Product
 
-	db.Where("user_id = ?", c.Param("user_id")).Find(&products)
+	if err := db.Where("user_id = ?", c.Param("user_id")).Find(&products).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	var productsResponse []models.ProductResponse
 	copier.Copy(&productsResponse, &products)
@@ -96,7 +108,11 @@ func GetProductsByCategoryID(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var products []models.Product
 
-	db.Where("category_id = ?", c.Param("category_id")).Find(&products)
+	if err := db.Where("category_id = ?", c.Param("category_id")).Find(&products).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	var productsResponse []models.ProductResponse
 	copier.Copy(&productsResponse, &products)
@@ -141,7 +157,11 @@ func PostProduct(c *gin.Context) {
 		CategoryID:  input.CategoryID,
 	}
 
-	db.Create(&product)
+	if err := db.Create(&product).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	response := utils.ResponseAPI("Product created successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
@@ -184,7 +204,11 @@ func UpdateProduct(c *gin.Context) {
 		return
 	}
 
-	db.Model(&product).Updates(productInput)
+	if err := db.Model(&product).Updates(productInput).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	response := utils.ResponseAPI("Product data changed successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
@@ -217,7 +241,11 @@ func DeleteProduct(c *gin.Context) {
 		return
 	}
 
-	db.Delete(&product)
+	if err := db.Delete(&product).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	response := utils.ResponseAPI("Product deleted successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)

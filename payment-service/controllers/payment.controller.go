@@ -35,7 +35,11 @@ func GetPaymentProviders(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var providers []models.PaymentProvider
 
-	db.Find(&providers)
+	if err := db.Find(&providers).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	var providersResponse []models.PaymentProviderResponse
 	copier.Copy(&providersResponse, &providers)
@@ -74,7 +78,11 @@ func PostPaymentProvider(c *gin.Context) {
 		Name: paymentProviderInput.Name,
 	}
 
-	db.Create(&provider)
+	if err := db.Create(&provider).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	response := utils.ResponseAPI("Payment provider created successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
@@ -116,7 +124,11 @@ func UpdatePaymentProvider(c *gin.Context) {
 		return
 	}
 
-	db.Model(&provider).Updates(paymentProviderInput)
+	if err := db.Model(&provider).Updates(paymentProviderInput).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	response := utils.ResponseAPI("Payment provider changed successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
@@ -148,7 +160,11 @@ func DeletePaymentProvider(c *gin.Context) {
 		return
 	}
 
-	db.Delete(&provider)
+	if err := db.Delete(&provider).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	response := utils.ResponseAPI("Payment provider deleted successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)

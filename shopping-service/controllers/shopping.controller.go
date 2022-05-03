@@ -244,7 +244,11 @@ func UpdateCartItem(c *gin.Context) {
 
 	// Set new total
 	totalPrice := session.Total + product.Price*int(math.Abs(float64(item.Quantity-itemOldQuantity)))
-	db.Model(&session).Update("total", totalPrice)
+	if err := db.Model(&session).Update("total", totalPrice).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	response := utils.ResponseAPI("Cart item updated successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)

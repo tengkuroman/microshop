@@ -131,7 +131,11 @@ func ChangePassword(c *gin.Context) {
 		return
 	}
 
-	db.Model(&user).Update("password", newHashedPassword)
+	if err := db.Model(&user).Update("password", newHashedPassword).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	response := utils.ResponseAPI("Password changed successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
@@ -164,7 +168,11 @@ func ChangeUserDetail(c *gin.Context) {
 		return
 	}
 
-	db.Model(&user).Updates(changeUserDetailInput)
+	if err := db.Model(&user).Updates(changeUserDetailInput).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	response := utils.ResponseAPI("User details changed successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
@@ -207,7 +215,11 @@ func SwitchUser(c *gin.Context) {
 		return
 	}
 
-	db.Model(&user).Update("role", newRole)
+	if err := db.Model(&user).Update("role", newRole).Error; err != nil {
+		response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
+		c.JSON(http.StatusInternalServerError, response)
+		return
+	}
 
 	response := utils.ResponseAPI("Role changed successfully!", http.StatusOK, "success", nil)
 	c.JSON(http.StatusOK, response)
@@ -232,8 +244,7 @@ func ValidateUser(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var user models.User
 
-	err = db.Model(&user).Where("id = ?", claims["user_id"]).Take(&user).Error
-	if err != nil {
+	if err := db.Model(&user).Where("id = ?", claims["user_id"]).Take(&user).Error; err != nil {
 		response := utils.ResponseAPI("Check user ID failed!", http.StatusInternalServerError, "error", nil)
 		c.JSON(http.StatusInternalServerError, response)
 		return
