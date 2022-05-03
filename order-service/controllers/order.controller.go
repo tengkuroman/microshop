@@ -190,7 +190,7 @@ func PayOrder(c *gin.Context) {
 			}
 
 			client := resty.New()
-			resp, err := client.R().SetBody(data).Post(paymentBaseURL + "/payment/process")
+			resp, err := client.R().SetBody(data).Post("http://" + paymentBaseURL + "/payment/process")
 
 			if err != nil {
 				response := utils.ResponseAPI(err.Error(), http.StatusInternalServerError, "error", nil)
